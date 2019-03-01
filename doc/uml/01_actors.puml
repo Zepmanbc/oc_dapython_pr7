@@ -1,0 +1,14 @@
+@startuml 01_actors
+title Acteurs du système
+
+rectangle Papy_Robot
+actor User
+actor Google_Map <<externe>>
+actor Wikimedia <<externe>>
+
+User -- Papy_Robot
+Papy_Robot - Google_Map
+Wikimedia - Papy_Robot
+
+
+@enduml

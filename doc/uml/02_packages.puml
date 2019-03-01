@@ -1,0 +1,22 @@
+@startuml 02_packages
+title Diagramme de packages
+
+rectangle Papy_Robot{
+    left to right direction
+    package Question
+    package Reponse
+    package Informations
+}
+actor User
+actor Google_Map <<externe>>
+actor Wikimedia <<externe>>
+
+User -- Question
+User -- Reponse
+Question -- Informations
+Reponse -- Informations
+Informations -- Google_Map
+Informations -- Wikimedia
+
+
+@enduml
