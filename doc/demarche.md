@@ -4,9 +4,9 @@ Github : https://github.com/Zepmanbc/oc_dapython_pr7
 
 Trello : https://trello.com/b/Wh1dkH9n/ocdapythonpr7
 
-Lien Heroku : 
+Lien Heroku : https://bc-ocdapythonpr7.herokuapp.com/
 
-Analyse Fonctionnelle
+[Analyse Fonctionnelle](analyse_fonctionelle.md)
 
 # Démarche
 
