@@ -1,10 +1,14 @@
 @startuml 03_UC_question
 title Cas d'utilisation "question"
+
+left to right direction
+
 package question{
     (poser une question) as ASK
+    (analyser la question) as analyse
 }
 actor User
 
-User - ASK
+User -- ASK
 
 @enduml

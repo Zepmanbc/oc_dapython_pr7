@@ -3,7 +3,6 @@ title Cas d'utilisation "information"
 
 package information{
     left to right direction
-    (analyser la question) as analyse
     (renvoyer un plan) as map
     (renvoyer une anecdote) as story
 }

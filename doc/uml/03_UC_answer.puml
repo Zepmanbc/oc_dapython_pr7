@@ -3,15 +3,13 @@ title Cas d'utilisation "answer"
 
 package answer{
     left to right direction
-    (voir le plan) as map
-    (voir une anecdote) as story
+    (voir la reponse \n plan + anecdote) as reponse
     (voir un message d'erreur) as error
 }
 
 actor User
 
-User -- map
-User -- story
+User -- reponse
 User -- error
 
 @enduml
