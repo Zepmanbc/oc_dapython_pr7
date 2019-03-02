@@ -1,0 +1,18 @@
+@startuml 03_UC_information
+title Cas d'utilisation "information"
+
+package information{
+    left to right direction
+    (analyser la question) as analyse
+    (renvoyer un plan) as map
+    (renvoyer une anecdote) as story
+}
+actor Google_Map <<externe>>
+actor Wikimedia <<externe>>
+
+map -- Google_Map
+story -- Wikimedia
+
+
+
+@enduml

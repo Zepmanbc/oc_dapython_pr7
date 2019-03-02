@@ -1,0 +1,32 @@
+@startuml 07_deployment
+title Diagramme de déploiement
+
+left to right direction
+
+node "Appareil utilisateur"{
+    component navigateur
+}
+
+cloud Heroku{
+    rectangle gunicorn{
+        rectangle Flask
+    }
+    rectangle nginx{
+        file static_data
+    }
+}
+
+cloud Google{
+    package API_Google_map
+}
+
+cloud Wikipedia{
+    package API_wikimedia
+}
+
+nginx -- gunicorn : WSGI
+navigateur -- nginx : HTTPS
+Flask -- API_Google_map : HTTPS
+Flask -- API_wikimedia : HTTPS
+
+@enduml

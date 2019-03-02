@@ -1,0 +1,22 @@
+@startuml 06_component
+title Diagramme de composants
+
+node Papy_robot{
+    rectangle Flask{
+        left to right direction
+        package question
+        package answer
+        package information
+    }
+}
+
+component API_Google_map
+
+component API_Wikimedia
+
+information --  plan
+plan -- API_Google_map
+information -- anecdote
+anecdote -- API_Wikimedia
+
+@enduml

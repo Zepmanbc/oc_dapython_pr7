@@ -3,20 +3,20 @@ title Diagramme de packages
 
 rectangle Papy_Robot{
     left to right direction
-    package Question
-    package Reponse
-    package Informations
+    package question
+    package answer
+    package information
 }
 actor User
 actor Google_Map <<externe>>
 actor Wikimedia <<externe>>
 
-User -- Question
-User -- Reponse
-Question -- Informations
-Reponse -- Informations
-Informations -- Google_Map
-Informations -- Wikimedia
+User -- question
+User -- answer
+question -- information
+answer -- information
+information -- Google_Map
+information -- Wikimedia
 
 
 @enduml

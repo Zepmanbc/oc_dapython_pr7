@@ -1,0 +1,17 @@
+@startuml 03_UC_answer
+title Cas d'utilisation "answer"
+
+package answer{
+    left to right direction
+    (voir le plan) as map
+    (voir une anecdote) as story
+    (voir un message d'erreur) as error
+}
+
+actor User
+
+User -- map
+User -- story
+User -- error
+
+@enduml

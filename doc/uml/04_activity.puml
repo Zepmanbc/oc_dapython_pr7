@@ -1,0 +1,16 @@
+@startuml 04_activity
+title Diagramme d'activité
+
+start
+:l'utilisateur pose une question;
+:la question est analysée pour récuperer les mots clés;
+:une requete est envoyée dans Google Map pour récuperer un plan;
+if (reponse ok de Google map) then (oui)
+:une requete est envoyée dans Wikimedia pour récuperer une anecdote;
+:Une réponse est affichée sur l'écran;
+end
+else (non)
+:un message est affiché disant que la quesiton n'etait pas claire;
+end
+
+@enduml

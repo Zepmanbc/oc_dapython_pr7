@@ -1,0 +1,28 @@
+@startuml 05_class
+title Diagramme de classes
+
+class question{
+    Analyse_question()
+    --
+    question: String
+    key_words: List
+}
+
+class information{
+    ask_gmap()
+    ask_wiki()
+    --
+    url_gmap: String
+    story: String
+}
+
+class reponse{
+    return_error()
+    return_answer()
+    --
+    message_error: String
+    return_answer: List
+}
+
+
+@enduml

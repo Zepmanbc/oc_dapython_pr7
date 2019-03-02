@@ -1,0 +1,10 @@
+@startuml 03_UC_question
+title Cas d'utilisation "question"
+package question{
+    (poser une question) as ASK
+}
+actor User
+
+User - ASK
+
+@enduml

@@ -29,17 +29,23 @@ Si la recherche ne donne pas de résultat concluant, un message indiquant que la
 
 ## Cas d'utilisation
 
+![Cas d'utilisation "question"](img/03_UC_question.png)
+
+![Cas d'utilisation "answer"](img/03_UC_answer.png)
+
+![Cas d'utilisation "information"](img/03_UC_information.png)
+
 ## Cycle de vie
-Diagramme d'activité
+![Diagramme d'activité"](img/04_activity.png)
 
 ## Description du domaine fonctionnel
 
-Diagramme de CLasses
+![Diagramme de classes"](img/05_class.png)
 
 ## Description des composants du système
 
-Diagramme de composatns
+![Diagramme de composants](img/06_component.png)
 
 ## Déploiement
 
-Diagramme de déploiement
+![Diagramme de déploiement](img/07_deployment.png)
