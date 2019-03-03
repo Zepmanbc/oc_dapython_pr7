@@ -10,9 +10,21 @@ Lien Heroku : https://bc-ocdapythonpr7.herokuapp.com/
 
 # Démarche
 
+## Front
+
+Réalisation d'une maquette pour la version écran d'ordinateur et de smartphones.
+
+![version ordinateur](front/version_ordi.png)
+
+![version smartphone](front/version_mobile.png)
+
+[version ordinateur format GIMP](front/version_ordi.xcf)
+
+[version smartphone format GIMP](front/version_mobile.xcf)
+
 ## Flask et le TDD
 
-## Front
+
 
 ## API Google Map et Wikimedia
 
