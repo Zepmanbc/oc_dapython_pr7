@@ -35,8 +35,9 @@ footer img{
 .main-div{ /* main div */
     background-image: url("../../papyrobot/static/img/motif.jpg");
     padding: 90px 20px 70px 20px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     /* height: 100vh; */
+    min-height: 99vh;
 }
 
 #dialog-box{
@@ -44,7 +45,7 @@ footer img{
     border-radius: 25px;
     padding: 20px;
     background-color: white;
-    /* min-height: 100px; */
+
 }
 
 #papy{
@@ -58,8 +59,8 @@ footer img{
     margin-top: 50px;
 }
 
-.question{
-    margin: 10px;
+input{
+    margin: 10px 0px;
 }
 
 /* A virer */
@@ -68,3 +69,8 @@ footer img{
     height: 300px;
     background-color: green;
 }
+
+/* div{
+    background-color: red;
+    border: solid black 3px;
+} */
