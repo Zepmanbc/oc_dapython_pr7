@@ -12,6 +12,7 @@ class Question():
 class Answer():
 
     def __init__(self, infos):
+        self.toto = infos + 2
         pass
 
 class Information():
