@@ -3,7 +3,7 @@ import sys
 import pytest
 
 sys.path.append('papyrobot/')
-import utils
+from utils.answer import Answer
 
 class TestAnswer():
 
