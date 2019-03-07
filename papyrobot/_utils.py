@@ -1,5 +1,8 @@
 #! /usr/bin/env python
+import os
 
+import googlemaps
+from mediawiki import MediaWiki
 
 class Question():
 
