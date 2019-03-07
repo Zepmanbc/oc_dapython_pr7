@@ -4,3 +4,4 @@
 doc/API/gmap_search_place.html
 papyrobot/templates/gmap_search_place.html
 doc/API/key.py
+.env

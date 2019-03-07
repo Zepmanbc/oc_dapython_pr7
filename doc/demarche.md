@@ -22,10 +22,32 @@ Réalisation d'une maquette pour la version écran d'ordinateur et de smartphone
 
 [version smartphone format GIMP](front/version_mobile.xcf)
 
+## Déploiement sur Heroku
+
+Création du fichier Procfile
+
+Clonage du repo dans heroku
+
+    heroku git:clone -a bc-ocdapythonpr7
+
+pour pousser le projet vers heroku
+
+    git push heroku master
+
 ## Flask et le TDD
 
 
 
 ## API Google Map et Wikimedia
 
-## Déploiement sur Heroku
+Création de l'identifiant sur https://console.cloud.google.com
+
+Création de la variable d'environnement dans l'environnement virtuel
+
+    pipenv shell
+    echo "GMAPKEY=[PRIVATE_KEY]" >> .env
+    echo $GMAPKEY
+
+Création de la variable d'environnement dans Heroku
+
+    heroku config:set GMAPKEY=[PRIVATE_KEY]

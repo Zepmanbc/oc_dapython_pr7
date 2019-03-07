@@ -1,10 +1,8 @@
 #! /usr/bin/env python
+import os
 import googlemaps
-from key import gmapkey
 
-
-
-gmaps = googlemaps.Client(key=gmapkey)
+gmaps = googlemaps.Client(key=os.environ['GMAPKEY'])
 
 # Geocoding an address
 geocode_result = gmaps.geocode('adresse openclassrooms')
