@@ -36,6 +36,13 @@ pour pousser le projet vers heroku
 
 ## Flask et le TDD
 
+définir une liste de phrases à tester:
+
+* Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?
+* où se trouve l'Arc de Triomphe?
+* Quelle est l'adresse de la Tour Eiffel?
+* Dis Papy, c'est quoi l'adresse de l'Elysée?
+* Tu connais l'adresse de l'Opéra Garnier?
 
 
 ## API Google Map et Wikimedia
