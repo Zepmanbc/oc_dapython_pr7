@@ -31,12 +31,13 @@ if __name__ == "__main__":
     Dis Papy, c'est quoi l'adresse de l'Elysée?
     Tu connais l'adresse de l'Opéra Garnier?
     """
-    import os
-    os.system('clear')
-    question = Question()
-    query = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
+    # import os
+    # os.system('clear')
+    # question = Question()
+    # query = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
     # query = "où se trouve l'Arc de Triomphe?"
     # query = "Quelle est l'adresse de la Tour Eiffel?"
     # query = "Dis Papy, c'est quoi l'adresse de l'Elysée?"
     # query = "Tu connais l'adresse de l'Opéra Garnier?"
-    print(question.analyze(query))
+    # print(question.analyze(query))
+    pass
