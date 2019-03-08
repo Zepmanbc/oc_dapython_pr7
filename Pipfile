@@ -8,12 +8,12 @@ pylint = "*"
 
 [packages]
 flask = "*"
-pytest = "*"
-pytest-cov = "*"
-coverage = "*"
 gunicorn = "*"
 pymediawiki = "*"
 googlemaps = "*"
+pytest = "*"
+pytest-cov = "*"
+coveralls = "*"
 
 [requires]
 python_version = "3.6"
