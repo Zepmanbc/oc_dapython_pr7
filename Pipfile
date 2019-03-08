@@ -13,6 +13,7 @@ pytest-cov = "*"
 coverage = "*"
 gunicorn = "*"
 pymediawiki = "*"
+googlemaps = "*"
 
 [requires]
 python_version = "3.6"
