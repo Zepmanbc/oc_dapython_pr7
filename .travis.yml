@@ -6,3 +6,5 @@ install:
   - 'pipenv sync'
 script:
   - pytest --cov=papyrobot
+after_success:
+  - coveralls
