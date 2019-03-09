@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 sys.path.append('papyrobot/')
 from utils.information import Information
 from utils import information
-from mediawiki.exceptions import DisambiguationError
+import mediawiki
 
 class TestAnswer():
 
@@ -66,9 +66,12 @@ class TestAnswer():
         waited = "Le Champ-de-Mars est un vaste jardin public, entièrement ouvert et situé à Paris dans le 7e arrondissement, entre la tour Eiffel au nord-ouest et l'École militaire au sud-est. Avec ses 24,5 ha, le jardin du Champ-de-Mars est l'un des plus grands espaces verts de Paris. Riche d'une histoire bicentenaire, le Champ-de-Mars accueille les Parisiens et les touristes toute l'année autour d'un vaste ensemble d'activités."
         assert result == waited
 
+    def simu_error(self):
+        raise mediawiki.exceptions.DisambiguationError()
+
     def test_ask_wiki_fail(self):
         self.infos.wikipedia.search.return_value = ['']
-        self.infos.wikipedia.page.side_effect = Exception()
+        self.infos.wikipedia.page.side_effect = mediawiki.exceptions.DisambiguationError('','','')
 
         key_words = "Citée Par"
         result = self.infos.ask_wiki(key_words)

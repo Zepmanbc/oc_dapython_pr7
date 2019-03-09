@@ -55,8 +55,7 @@ class Information():
         search = self.wikipedia.search(query)
         try:
             result = self.wikipedia.page(search[0])
-        # except mediawiki.exceptions.DisambiguationError:
-        except:
+        except mediawiki.exceptions.DisambiguationError:
             return False
         content = result.content
         if "== Situation et accès ==" in content:
@@ -65,7 +64,6 @@ class Information():
                 if text:
                     content = text
                     break
-            # content = content.split("\n")[0]
         else:
             content = content.split("==")[0].replace("\n", "")
         self.story = content
