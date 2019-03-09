@@ -28,6 +28,10 @@ class Information():
             geocode_result[0]['geometry']['location']['lat'],
             geocode_result[0]['geometry']['location']['lng']
             )
+
+        print(self._extract_city(geocode_result[0]['address_components']))
+        print(geocode_result)
+
         self.street_city = " ".join([
             self._extract_street(geocode_result[0]['address_components']), 
             self._extract_city(geocode_result[0]['address_components'])
@@ -51,7 +55,8 @@ class Information():
         search = self.wikipedia.search(query)
         try:
             result = self.wikipedia.page(search[0])
-        except mediawiki.exceptions.DisambiguationError:
+        # except mediawiki.exceptions.DisambiguationError:
+        except:
             return False
         content = result.content
         if "== Situation et accès ==" in content:
@@ -67,19 +72,19 @@ class Information():
         return True
 
 if __name__ == "__main__":
-    import os
-    from question import Question
-    os.system('clear')
-    question = Question()
+    # import os
+    # from question import Question
+    # os.system('clear')
+    # question = Question()
     # query = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
-    # query = "où se trouve l'Arc de Triomphe?"
-    # query = "Quelle est l'adresse de la Tour Eiffel?"
-    # query = "Dis Papy, c'est quoi l'adresse de l'Elysée?"
-    query = "Tu connais l'adresse de l'Opéra Garnier?"
+    # # query = "où se trouve l'Arc de Triomphe?"
+    # # query = "Quelle est l'adresse de la Tour Eiffel?"
+    # # query = "Dis Papy, c'est quoi l'adresse de l'Elysée?"
+    # # query = "Tu connais l'adresse de l'Opéra Garnier?"
 
     # keyword_gmap = question.analyze(query)
     # # keyword_gmap = "toto"
-    info = Information()
+    # info = Information()
     # if info.ask_gmap(keyword_gmap):
     #     print(info.formatted_address)
     #     print(info.location)
@@ -87,11 +92,12 @@ if __name__ == "__main__":
     # else:
     #     print("pas clair")
 
-    # info.street_city = 'Cité Paradis Paris'
-    info.street_city = 'Place Charles de Gaulle Paris'
-    # info.street_city = 'Champ de Mars Paris'
-    # info.street_city = 'Rue du Faubourg Saint-Honoré Paris'
-    # info.street_city = 'Rue Scribe Paris'
+    # # info.street_city = 'Cité Paradis Paris'
+    # # info.street_city = 'Place Charles de Gaulle Paris'
+    # # info.street_city = 'Champ de Mars Paris'
+    # # info.street_city = 'Rue du Faubourg Saint-Honoré Paris'
+    # # info.street_city = 'Rue Scribe Paris'
     # info.street_city = 'Cité Par'
-    info.ask_wiki(info.street_city)
-    print(info.story)
+    # info.ask_wiki(info.street_city)
+    # print(info.story)
+    pass
