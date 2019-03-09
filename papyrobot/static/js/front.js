@@ -2,6 +2,7 @@
 // set good width for the footer
 window.onload = function(event) {
     headerFooterWidth();
+    document.getElementsByClassName("loading")[0].style.display = 'none';
 }
 
 window.onresize = function(event) {
@@ -20,6 +21,9 @@ function headerFooterWidth(){
     document.getElementById('virgule-bulle').style.marginTop = (papyHeight / 3) + "px";
     // set height for papy pic div
     document.getElementById("papy-div").style.height = papyHeight + 30 + "px";;
+    // set loading img in the center
+    loadingHeight = document.querySelector(".loading img").height
+    document.querySelector(".loading img").style.marginTop = (screen.height / 2 - loadingHeight) + "px";
 }
 
 
