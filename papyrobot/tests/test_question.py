@@ -24,31 +24,31 @@ class TestAnswer():
 
     def test_question_1(self):
         query = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
-        wanted = "OpenClassrooms".lower()
+        wanted = "OpenClassrooms"
         result = self.question.analyze(query)
         assert result == wanted
 
     def test_question_2(self):
         query = "où se trouve l'Arc de Triomphe?"
-        wanted = "Arc Triomphe".lower()
+        wanted = "Arc Triomphe"
         result = self.question.analyze(query)
         assert result == wanted
 
     def test_question_3(self):
         query = "Quelle est l'adresse de la Tour Eiffel?"
-        wanted = "Tour Eiffel".lower()
+        wanted = "Tour Eiffel"
         result = self.question.analyze(query)
         assert result == wanted
 
     def test_question_4(self):
         query = "Dis Papy, c'est quoi l'adresse de l'Elysée?"
-        wanted = "Elysée".lower()
+        wanted = "Elysée"
         result = self.question.analyze(query)
         assert result == wanted
 
     def test_question_5(self):
         query = "Tu connais l'adresse de l'Opéra Garnier?"
-        wanted = "Opéra Garnier".lower()
+        wanted = "Opéra Garnier"
         result = self.question.analyze(query)
         assert result == wanted
 

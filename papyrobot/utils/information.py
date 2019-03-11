@@ -29,8 +29,8 @@ class Information():
             geocode_result[0]['geometry']['location']['lng']
             )
 
-        print(self._extract_city(geocode_result[0]['address_components']))
-        print(geocode_result)
+        # print(self._extract_city(geocode_result[0]['address_components']))
+        # print(geocode_result)
 
         self.street_city = " ".join([
             self._extract_street(geocode_result[0]['address_components']), 
@@ -43,12 +43,14 @@ class Information():
         for component in address_components:
             if 'route' in component['types'] or 'establishment' in component['types']:
                 return component['long_name']
+        return ''
 
     @staticmethod
     def _extract_city(address_components):
         for component in address_components:
             if 'locality' in component['types']:
                 return component['long_name']
+        return ''
 
 
     def ask_wiki(self, query):
@@ -81,14 +83,14 @@ if __name__ == "__main__":
     # # query = "Tu connais l'adresse de l'Opéra Garnier?"
 
     # keyword_gmap = question.analyze(query)
-    # # keyword_gmap = "toto"
-    # info = Information()
-    # if info.ask_gmap(keyword_gmap):
-    #     print(info.formatted_address)
-    #     print(info.location)
-    #     print(info.street_city)
-    # else:
-    #     print("pas clair")
+    keyword_gmap = "toto"
+    info = Information()
+    if info.ask_gmap(keyword_gmap):
+        print(info.formatted_address)
+        print(info.location)
+        print(info.street_city)
+    else:
+        print("pas clair")
 
     # # info.street_city = 'Cité Paradis Paris'
     # # info.street_city = 'Place Charles de Gaulle Paris'

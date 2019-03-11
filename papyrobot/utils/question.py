@@ -14,11 +14,11 @@ class Question():
 
     def analyze(self, query):
         analyzed_list = list()
-        query = query.lower()
+        query = query
         for punc in self.punctuation:
             query = query.replace(punc, ' ')
         for word in query.split():
-            if not word in self.stopwords:
+            if not word.lower() in self.stopwords:
                 analyzed_list.append(word)
         analyzed = ' '.join(analyzed_list)
         return analyzed
