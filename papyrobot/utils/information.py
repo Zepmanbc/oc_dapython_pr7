@@ -12,7 +12,7 @@ class Information():
         self.wikipedia = MediaWiki()
         self.wikipedia.language = "fr"
 
-        self.gmaps = googlemaps.Client(key=os.environ['GMAPKEY'])
+        self.gmaps = googlemaps.Client(key=os.environ['GMAPKEY_BACK'])
         
         self.formatted_address = str()
         self.location = tuple()

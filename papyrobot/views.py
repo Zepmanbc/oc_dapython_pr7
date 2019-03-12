@@ -11,7 +11,7 @@ app = Flask(__name__)
 # app.config.from_object('config')
 @app.route('/') 
 def index(): 
-    return render_template("index.html", GMAPKEY=os.environ['GMAPKEY'])
+    return render_template("index.html", GMAPKEY=os.environ['GMAPKEY_FRONT'])
 
 @app.route('/ajax',  methods=['GET', 'POST'])
 def ajax_request():
