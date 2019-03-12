@@ -1,20 +1,23 @@
 #! /usr/bin/env python
+"""Views manager."""
 import os
 
 from flask import Flask, render_template, jsonify, request
 from papyrobot.utils.information import Information
 from papyrobot.utils.question import Question
-from papyrobot.utils.answer import Answer
+# from papyrobot.utils.answer import Answer
 
 app = Flask(__name__)
 
 # app.config.from_object('config')
-@app.route('/') 
-def index(): 
+@app.route('/')
+def index():
+    """Index page"""
     return render_template("index.html", GMAPKEY=os.environ['GMAPKEY_FRONT'])
 
-@app.route('/ajax',  methods=['GET', 'POST'])
+@app.route('/ajax', methods=['GET', 'POST'])
 def ajax_request():
+    """Request page, return json."""
     query = request.args.get('question')
     if query:
         question = Question()
@@ -33,5 +36,5 @@ def ajax_request():
                 story=info.story)
     return jsonify()
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     app.run()

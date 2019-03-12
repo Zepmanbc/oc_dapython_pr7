@@ -1,11 +1,26 @@
 #! /usr/bin/env python
+"""Question module"""
 import json
 
 
 class Question():
+    """Question Class.
+
+    question = Question()
+    question.analyse("Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?")
+
+    return "OpenClassrooms"
+    """
 
     def __init__(self):
-        with open('papyrobot/static/json/stopwords_fr.json') as json_data: 
+        """Init needed filters.
+
+        loads standard stopwords
+        loads custom stopwords
+        loads punctuation list
+
+        """
+        with open('papyrobot/static/json/stopwords_fr.json') as json_data:
             self.stopwords = json.load(json_data)
         stopword_custom = ['adresse', 'trouve', 'quelle', 'quel', 'papy', 'grandpy', 'connais', 'dis', 'salut']
         [self.stopwords.append(x) for x in stopword_custom]
@@ -13,6 +28,15 @@ class Question():
 
 
     def analyze(self, query):
+        """Remove all unnecesary words.
+
+        Args:
+            query (str): the string send by user
+
+        Return:
+            str: cleaned string
+
+        """
         analyzed_list = list()
         query = query
         for punc in self.punctuation:
@@ -24,13 +48,6 @@ class Question():
         return analyzed
 
 if __name__ == "__main__":
-    """
-    Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?
-    où se trouve l'Arc de Triomphe?
-    Quelle est l'adresse de la Tour Eiffel?
-    Dis Papy, c'est quoi l'adresse de l'Elysée?
-    Tu connais l'adresse de l'Opéra Garnier?
-    """
     # import os
     # os.system('clear')
     # question = Question()
