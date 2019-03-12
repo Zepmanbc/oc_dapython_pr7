@@ -64,6 +64,8 @@ Création de la variable d'environnement dans Heroku
 
     heroku config:set GMAPKEY=[PRIVATE_KEY]
 
+il faut faire une clé pour le front avec une restriction sur l'adresse https et une autre clé pour le back sans restriction car Heroku peut changer l'adresse IP
+
 Utilisation du paquet googlemaps : https://github.com/googlemaps/google-maps-services-python
 
 Utilisation de l'API geocode pour récupérer:
