@@ -42,6 +42,42 @@ class TestAnswer():
         result = self.infos.ask_gmap(key_words)
         assert not result
 
+    def test_ask_gmap_no_route(self):
+        self.infos.gmaps.geocode.return_value = [{
+                'address_components': [
+                    {'long_name': 'Pisa', 'short_name': 'Pisa', 'types': ['locality', 'political']},
+                    {'long_name': 'Provincia di Pisa', 'short_name': 'PI', 'types': ['administrative_area_level_2', 'political']},
+                    {'long_name': 'Italy', 'short_name': 'IT', 'types': ['country', 'political']},
+                    {'long_name': '56126', 'short_name': '56126', 'types': ['postal_code']}
+                ],
+                'formatted_address': 'Piazza del Duomo, 56126 Pisa PI, Italy',
+                'geometry': {'location': {'lat': 43.722952, 'lng': 10.396597}}
+            }]
+
+        key_words = "tour pise"
+        self.infos.ask_gmap(key_words)
+        result = self.infos.street_city
+        waited = "Pisa"
+        assert result == waited
+
+    def test_ask_gmap_no_locality(self):
+        self.infos.gmaps.geocode.return_value = [{
+                'address_components': [
+                    {'long_name': 'Pisa', 'short_name': 'Pisa', 'types': ['route', 'political']},
+                    {'long_name': 'Provincia di Pisa', 'short_name': 'PI', 'types': ['administrative_area_level_2', 'political']},
+                    {'long_name': 'Italy', 'short_name': 'IT', 'types': ['country', 'political']},
+                    {'long_name': '56126', 'short_name': '56126', 'types': ['postal_code']}
+                ],
+                'formatted_address': 'Piazza del Duomo, 56126 Pisa PI, Italy',
+                'geometry': {'location': {'lat': 43.722952, 'lng': 10.396597}}
+            }]
+
+        key_words = "tour pise"
+        self.infos.ask_gmap(key_words)
+        result = self.infos.street_city
+        waited = "Pisa"
+        assert result == waited
+
     def test_ask_wiki_ok(self):
         self.infos.wikipedia.search.return_value = ['']
         page = MagicMock()
@@ -66,14 +102,17 @@ class TestAnswer():
         waited = "Le Champ-de-Mars est un vaste jardin public, entièrement ouvert et situé à Paris dans le 7e arrondissement, entre la tour Eiffel au nord-ouest et l'École militaire au sud-est. Avec ses 24,5 ha, le jardin du Champ-de-Mars est l'un des plus grands espaces verts de Paris. Riche d'une histoire bicentenaire, le Champ-de-Mars accueille les Parisiens et les touristes toute l'année autour d'un vaste ensemble d'activités."
         assert result == waited
 
-    def simu_error(self):
-        raise mediawiki.exceptions.DisambiguationError()
-
     def test_ask_wiki_fail(self):
         self.infos.wikipedia.search.return_value = ['']
         self.infos.wikipedia.page.side_effect = mediawiki.exceptions.DisambiguationError('','','')
 
-        key_words = "Citée Par"
+        key_words = "Cité par"
+        result = self.infos.ask_wiki(key_words)
+        assert not result
+
+    def test_ask_wiki_false(self):
+        self.infos.wikipedia.search.return_value = []
+        key_words = "Homey Airport"
         result = self.infos.ask_wiki(key_words)
         assert not result
         

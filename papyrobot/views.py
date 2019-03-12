@@ -21,7 +21,10 @@ def ajax_request():
         key_words = question.analyze(query)
         info = Information()
         if info.ask_gmap(key_words):
-            info.ask_wiki(info.street_city)
+            if not info.ask_wiki(info.street_city):
+                info.ask_wiki(key_words)
+            if not info.story:
+                info.story = "... en fait non, je n'y suis jamais allé"
             return jsonify(
                 keywords=key_words,
                 formatted_address=info.formatted_address,

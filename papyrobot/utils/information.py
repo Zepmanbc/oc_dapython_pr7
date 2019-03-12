@@ -35,7 +35,7 @@ class Information():
         self.street_city = " ".join([
             self._extract_street(geocode_result[0]['address_components']), 
             self._extract_city(geocode_result[0]['address_components'])
-            ])
+            ]).strip()
         return True
 
     @staticmethod
@@ -55,21 +55,24 @@ class Information():
 
     def ask_wiki(self, query):
         search = self.wikipedia.search(query)
-        try:
-            result = self.wikipedia.page(search[0])
-        except mediawiki.exceptions.DisambiguationError:
-            return False
-        content = result.content
-        if "== Situation et accès ==" in content:
-            content = content.split("== Situation et accès ==")[1]
-            for text in content.split('\n'):
-                if text:
-                    content = text
-                    break
+        if search:
+            try:
+                result = self.wikipedia.page(search[0])
+            except mediawiki.exceptions.DisambiguationError:
+                return False
+            content = result.content
+            if "== Situation et accès ==" in content:
+                content = content.split("== Situation et accès ==")[1]
+                for text in content.split('\n'):
+                    if text:
+                        content = text
+                        break
+            else:
+                content = content.split("==")[0].replace("\n", "")
+            self.story = content
+            return True
         else:
-            content = content.split("==")[0].replace("\n", "")
-        self.story = content
-        return True
+            return False
 
 if __name__ == "__main__":
     # import os
@@ -81,16 +84,16 @@ if __name__ == "__main__":
     # # query = "Quelle est l'adresse de la Tour Eiffel?"
     # # query = "Dis Papy, c'est quoi l'adresse de l'Elysée?"
     # # query = "Tu connais l'adresse de l'Opéra Garnier?"
-
+    # query = "zone 51"
     # keyword_gmap = question.analyze(query)
-    keyword_gmap = "toto"
-    info = Information()
-    if info.ask_gmap(keyword_gmap):
-        print(info.formatted_address)
-        print(info.location)
-        print(info.street_city)
-    else:
-        print("pas clair")
+    # keyword_gmap = "tour pise"
+    # info = Information()
+    # if info.ask_gmap(keyword_gmap):
+    #     print(info.formatted_address)
+    #     print(info.location)
+    #     print(info.street_city)
+    # else:
+    #     print("pas clair")
 
     # # info.street_city = 'Cité Paradis Paris'
     # # info.street_city = 'Place Charles de Gaulle Paris'
@@ -98,6 +101,7 @@ if __name__ == "__main__":
     # # info.street_city = 'Rue du Faubourg Saint-Honoré Paris'
     # # info.street_city = 'Rue Scribe Paris'
     # info.street_city = 'Cité Par'
-    # info.ask_wiki(info.street_city)
+    # if not info.ask_wiki(info.street_city):
+    #     info.ask_wiki(keyword_gmap)
     # print(info.story)
     pass
