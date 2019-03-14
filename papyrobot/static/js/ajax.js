@@ -24,7 +24,7 @@ function putDataInTextArea(data){
 
 const questionInput =  document.getElementsByClassName("question")[0]
 questionInput.addEventListener("keyup", function(event) {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && questionInput.value) {
         // show loading div
         document.getElementsByClassName("loading")[0].style.display = 'block';
         var req = new XMLHttpRequest();
