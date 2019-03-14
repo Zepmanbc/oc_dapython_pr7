@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 """Question module"""
+from string import punctuation
 import json
 
 
@@ -17,14 +18,12 @@ class Question():
 
         loads standard stopwords
         loads custom stopwords
-        loads punctuation list
 
         """
         with open('papyrobot/static/json/stopwords_fr.json') as json_data:
             self.stopwords = json.load(json_data)
         stopword_custom = ['adresse', 'trouve', 'quelle', 'quel', 'papy', 'grandpy', 'connais', 'dis', 'salut']
-        [self.stopwords.append(x) for x in stopword_custom]
-        self.punctuation = [",", ".", "?", "!", ";", "'", "-"]
+        self.stopwords += stopword_custom
 
 
     def analyze(self, query):
@@ -37,14 +36,10 @@ class Question():
             str: cleaned string
 
         """
-        analyzed_list = list()
-        query = query
-        for punc in self.punctuation:
-            query = query.replace(punc, ' ')
-        for word in query.split():
-            if not word.lower() in self.stopwords:
-                analyzed_list.append(word)
-        analyzed = ' '.join(analyzed_list)
+        # remove punctuation from query
+        query =  query.translate(query.maketrans(punctuation, " " * len(punctuation)))
+        # remove stopwords
+        analyzed = ' '.join([x for x in query.split() if not x.lower() in self.stopwords])
         return analyzed
 
 if __name__ == "__main__":
