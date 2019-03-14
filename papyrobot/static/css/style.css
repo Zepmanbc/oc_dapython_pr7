@@ -1,13 +1,12 @@
 @font-face {
     font-family: 'Bookman';
-    src: url('../fonts/URW Bookman L Bold Italic.ttf') format('truetype')
-    }
+    src: url('../fonts/URW Bookman L Bold Italic.ttf') format('truetype');
 }
-
 
 html{
     background-color: #7a5f2f;
 }
+
 body { 
     background-color: transparent;
     font-family: 'Bookman', Arial, Helvetica, sans-serif;
