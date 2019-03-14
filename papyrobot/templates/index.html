@@ -28,15 +28,25 @@
         <div class="main-div row">
             <div class="container">
                 <div class="row">
+                    <div class="container">
+                            <div id="history" class="row">
+                                <!-- <div class="col-12">
+                                    <div class="papySpeak">Quel lieu cherches tu?</div>
+                                </div>
+                                <div class="col-12 text-right">
+                                    <div class="userSpeak">c'est où Openclassrooms?c'est où Openclassrooms?c'est où Openclassrooms?c'est où Openclassrooms?c'est où Openclassrooms?c'est où Openclassrooms?c'est où Openclassrooms?</div>
+                                </div> -->
+                            </div>
+                    </div>
                     <div id="papy-div" class="col-md-2 d-none d-md-block">
                         <img id="papy" class="img-fluid" src="{{ url_for('static', filename='img/grandpere.png') }}" />
                     </div>
-                    <div id="dialog-box" class="col-12 col-md-10 order-2 order-md-1">
+                    <div id="dialog-box" class="col-12 col-md-10">
                         <img id="virgule-bulle" class="d-none d-md-block" src="{{ url_for('static', filename='img/virgule-bulle.png') }}" alt="">
                         <div id="textArea">Quel lieu cherches tu?</div>
                     </div>
                     
-                    <div class="col-12 order-1 order-md-2">
+                    <div class="col-12">
                         <!-- <form action="" method="GET"> -->
                             <input class="form-control question" type="text" name="question" placeholder="Pose ta question ici et valide avec [Enter]" onsubmit="return validateFormOnSubmit(this);">
                         <!-- </form> -->
