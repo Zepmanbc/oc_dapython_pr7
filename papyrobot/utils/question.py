@@ -23,9 +23,8 @@ class Question():
         """
         with open('papyrobot/static/json/stopwords_fr.json') as json_data:
             self.stopwords = json.load(json_data)
-        stopword_custom = ['adresse', 'trouve', 'quelle', 'quel', 'connais', 'dis', 'salut']
-        self.stopwords += stopword_custom
-
+        with open('papyrobot/static/json/stopwords_custom.json') as json_data:
+            self.stopwords += json.load(json_data)
 
     def analyze(self, query):
         """Remove all unnecesary words.
@@ -46,14 +45,14 @@ class Question():
         return analyzed
 
 if __name__ == "__main__":
-    import os
-    os.system('clear')
-    question = Question()
-    query = "Salut GrandPy ! PyBot GrandBot Est-ce que tu connais l'adresse d'OpenClassrooms ?"
+    # import os
+    # os.system('clear')
+    # question = Question()
+    # query = "Salut GrandPy ! PyBot GrandBot Est-ce que tu connais l'adresse d'OpenClassrooms ?"
     # query = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
     # query = "où se trouve l'Arc de Triomphe?"
     # query = "Quelle est l'adresse de la Tour Eiffel?"
     # query = "Dis Papy, c'est quoi l'adresse de l'Elysée?"
     # query = "Tu connais l'adresse de l'Opéra Garnier?"
-    print(question.analyze(query))
+    # print(question.analyze(query))
     pass
