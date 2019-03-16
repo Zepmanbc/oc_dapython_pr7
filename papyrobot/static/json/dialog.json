@@ -1,0 +1,20 @@
+{
+    "intro":[
+        "Bien sur mon poussin, voici l'adresse : ",
+        "Voici l'adresse que tu cherches mon canard : ",
+        "Ah oui, je connais très bien cette adresse : ",
+        "J'y allais régulièrement à une époque, c'est à cette adresse : "
+    ],
+    "introduce_story" : [
+        "Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? ",
+        "Je connais très bien ce coin-là! ",
+        "Je vais t'en raconter un peu plus d'ailleurs : ",
+        "C'est un endroit fascinant  ! "
+    ],
+    "no_result" : [
+        "Je ne connais pas cet endroit, désolé, essaie encore.",
+        "Ca à l'air merveilleux, si seulement je comprenais ce que tu me demandes... Recommence!",
+        "Tu sais que tu es mon poussin préféré, mais Papy ne fais pas de miracles quand tu lui demandes des choses qu'il ne comprend pas.",
+        "hum hum... Je ne sais pas, peut être que je pourrais te répondre si tu me posais une question à laquelle j'ai une réponse!"
+    ]
+}

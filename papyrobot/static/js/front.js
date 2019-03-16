@@ -1,5 +1,3 @@
-
-// set good width for the footer
 window.onload = function(event) {
     resizeAll();
     // Hide loading page when windows is loaded

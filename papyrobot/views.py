@@ -5,7 +5,7 @@ import os
 from flask import Flask, render_template, jsonify, request
 from papyrobot.utils.information import Information
 from papyrobot.utils.question import Question
-# from papyrobot.utils.answer import Answer
+from papyrobot.utils.answer import Answer
 
 app = Flask(__name__)
 
@@ -15,9 +15,10 @@ def index():
     """Index page"""
     return render_template("index.html", GMAPKEY=os.environ['GMAPKEY_FRONT'])
 
-@app.route('/ajax', methods=['GET', 'POST'])
+@app.route('/ajax', methods=['GET'])
 def ajax_request():
     """Request page, return json."""
+    answer = Answer()
     query = request.args.get('question')
     if query:
         question = Question()
@@ -29,12 +30,23 @@ def ajax_request():
             if not info.story:
                 info.story = "... en fait non, je n'y suis jamais allé"
             return jsonify(
+                intro=answer.response("intro"),
+                introduce_story=answer.response("introduce_story"),
                 keywords=key_words,
                 formatted_address=info.formatted_address,
                 location=info.location,
                 street_city=info.street_city,
                 story=info.story)
-    return jsonify()
+        
+        no_result_file = open("papyrobot/static/tmp/no_result.log", "a")
+        no_result_file.write(key_words)
+        no_result_file.close()
+        
+        return jsonify(
+            no_result=answer.response("no_result"),
+            keywords=key_words
+            )
+        
 
 if __name__ == "__main__":
     app.run()

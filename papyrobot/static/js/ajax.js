@@ -2,16 +2,18 @@ var mapNumber = 0;
 
 function putDataInTextArea(data){
     document.getElementById('textArea').innerHTML = '';
-    if (data['keywords']){
+    if (data['location']){
+
+        // increase mapNumber to allow many requests
         mapNumber++;
-        // var question = "Tu cherches où se trouve " + data['keywords'] + "?";
-        var answer = "Bien sur mon poussin, voici l'adresse : " + data['formatted_address'];
-        var story = "Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? " + data['story']
         
-        // document.getElementById('textArea').innerHTML += '<p>' + question + '</p>';
-        document.getElementById('textArea').innerHTML += '<p>' + answer + '</p>';
+        // fill in textArea div
+        document.getElementById('textArea').innerHTML += '<p>' + data['intro'] + '</p>';
+        document.getElementById('textArea').innerHTML += '<p>' + data['formatted_address'] + '</p>';
+
         document.getElementById('textArea').innerHTML += '<div class="map_container"><div id="map'+mapNumber+'" class="map"></div></div>'
-        document.getElementById('textArea').innerHTML += '<p>' + story + '</p>';
+        document.getElementById('textArea').innerHTML += '<p>' + data['introduce_story'] + '</p>';
+        document.getElementById('textArea').innerHTML += '<p>' + data['story'] + '</p>';
 
         // initMap
         var lat_lng = {lat: data['location'][0], lng: data['location'][1]};
@@ -21,7 +23,7 @@ function putDataInTextArea(data){
         });
         var marker = new google.maps.Marker({position: lat_lng, map: map});
     } else {
-        document.getElementById('textArea').innerHTML += "<p>Je n'ai pas bien compris ta question ou alors je ne connais pas ce lieu, essaie encore !</p>";
+        document.getElementById('textArea').innerHTML += "<p>"+data['no_result']+"</p>";
     }
     
 }
@@ -30,6 +32,7 @@ function putInHistory(speaker, data){
     if(speaker == "userSpeak"){classText = " text-right";}else{classText="";};
     dataFormated = '<div class="col-12'+classText+'"><div class="' + speaker + '">' + data + '</div></div>'
     document.getElementById("history").innerHTML += dataFormated;
+    //scroll to bottom
     window.scrollTo(0,document.body.scrollHeight);
 }
 
