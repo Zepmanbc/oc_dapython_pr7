@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 """Information Class"""
 import os
+import requests
 
 import googlemaps
 import mediawiki
@@ -24,6 +25,7 @@ class Information():
     print(info.story)                   # return string from wikipedia
 
     """
+    
     def __init__(self):
         """Init Information class
 
@@ -120,18 +122,45 @@ class Information():
                 result = self.wikipedia.page(search[0])
             except mediawiki.exceptions.DisambiguationError:
                 return False
-            content = result.content
-            if "== Situation et accès ==" in content:
-                content = content.split("== Situation et accès ==")[1]
-                for text in content.split('\n'):
-                    if text:
-                        content = text
-                        break
-            else:
-                content = content.split("==")[0].replace("\n", "")
-            self.story = content
+            self._wiki_story_extract(result.content)
             return True
         return False
+    
+    def ask_wiki_api(self, keyword):
+        query = "https://fr.wikipedia.org/w/api.php?action=query&list=search&utf8&format=json&srsearch={}".format(keyword)
+        query_pages = requests.get(query).json()
+        self.page_title = query_pages["query"]["search"][0]["title"]
+        # get wiki page content
+        query = "https://fr.wikipedia.org/w/api.php?action=query&format=json&utf8&explaintext&prop=extracts&exlimit=1&titles={}".format(page_title)
+        query_page = requests.get(query)
+        page_nbr = next(iter(query_page.json()["query"]["pages"]))
+        page_content = query_page.json()["query"]["pages"][page_nbr]["extract"]
+        # Extract Story and fill self.story
+        self._wiki_story_extract(page_content)
+
+    # def ask_wiki_gps(self):
+    #     # geosearch
+    #     (lng, lat) = self.location
+    #     query = "https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gsradius=10000&gslimit=1&format=json&gscoord={}|{}".format(lng, lat)
+    #     query_pages = requests.get(query)
+    #     page_title = query_pages.json()["query"]["geosearch"][0]["title"]
+    #     # get wiki page content
+    #     query = "https://fr.wikipedia.org/w/api.php?action=query&format=json&utf8&explaintext&prop=extracts&exlimit=1&titles={}".format(page_title)
+    #     query_page = requests.get(query)
+    #     page_nbr = next(iter(query_page.json()["query"]["pages"]))
+    #     page_content = query_page.json()["query"]["pages"][page_nbr]["extract"]
+    #     # Extract Story and fill self.story
+    #     self._wiki_story_extract(page_content)
+
+    def _wiki_story_extract(self, content):
+        if "== Situation et accès ==" in content:
+            content = content.split("== Situation et accès ==")[1]
+            content = [x for x in content.split('\n') if x is not ''][0]
+        else:
+            content = content.split("==")[0].replace("\n", "")
+        self.story = content
+    
+    
 
 if __name__ == "__main__":
     # import os
@@ -146,7 +175,7 @@ if __name__ == "__main__":
     # query = "zone 51"
     # keyword_gmap = question.analyze(query)
     # keyword_gmap = "tour pise"
-    # info = Information()
+    info = Information()
     # if info.ask_gmap(keyword_gmap):
     #     print(info.formatted_address)
     #     print(info.location)
@@ -154,8 +183,8 @@ if __name__ == "__main__":
     # else:
     #     print("pas clair")
 
-    # # info.street_city = 'Cité Paradis Paris'
-    # # info.street_city = 'Place Charles de Gaulle Paris'
+    info.street_city = 'Cité Paradis Paris'
+    # info.street_city = 'Place Charles de Gaulle Paris'
     # # info.street_city = 'Champ de Mars Paris'
     # # info.street_city = 'Rue du Faubourg Saint-Honoré Paris'
     # # info.street_city = 'Rue Scribe Paris'
@@ -163,4 +192,8 @@ if __name__ == "__main__":
     # if not info.ask_wiki(info.street_city):
     #     info.ask_wiki(keyword_gmap)
     # print(info.story)
+
+    info.ask_wiki_api(info.street_city)
+    print(info.story)
+
     pass

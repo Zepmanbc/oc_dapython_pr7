@@ -2,16 +2,20 @@
 import sys
 import pytest
 
-sys.path.append('papyrobot/')
-from utils.answer import Answer
+from papyrobot.utils.answer import Answer
 
 class TestAnswer():
 
     def setup(self):
-        pass
+        self.answer = Answer()
 
     def teardown(self):
         pass
 
-    def test_first(self):
-        assert 1
+    def test_intro_ok(self):
+        result = self.answer.response("intro")
+        assert type('') == type(result)
+
+    def test_nok(self):
+        with pytest.raises(KeyError):
+            self.answer.response("unknown_category")

@@ -1,14 +1,18 @@
 #! /usr/bin/env python3
 import sys
+import requests
 import pytest
 from unittest.mock import MagicMock
 
-sys.path.append('papyrobot/')
-from utils.information import Information
-from utils import information
+from papyrobot.utils.information import Information
+from papyrobot.utils import information
 import mediawiki
 
-class TestAnswer():
+@pytest.fixture(autouse=True)
+def no_requests(monkeypatch):
+    monkeypatch.delattr("requests.sessions.Session.request")
+
+class TestInformation():
 
     def setup(self):
         information.MediaWiki = MagicMock()
@@ -115,4 +119,3 @@ class TestAnswer():
         key_words = "Homey Airport"
         result = self.infos.ask_wiki(key_words)
         assert not result
-        

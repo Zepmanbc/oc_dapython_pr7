@@ -1,10 +1,11 @@
 #! /usr/bin/env python3
-import sys
+# import sys
 import pytest
 
-sys.path.append('papyrobot/')
+# sys.path.append('papyrobot/')
 # import utils.question
-from utils.question import Question
+# from utils.question import Question
+from papyrobot.utils.question import Question
 
 """
 Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?
