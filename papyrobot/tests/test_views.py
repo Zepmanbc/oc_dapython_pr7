@@ -27,11 +27,9 @@ def test_ajax_no_response(client, monkeypatch):
     }
     """
     MockGooglemaps = MagicMock(information.googlemaps)
-    MockGooglemaps.return_value = MagicMock()
     monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
 
     MockMediawiki = MagicMock(information.mediawiki)
-    MockMediawiki.return_value = MagicMock()
     monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
 
     MockAskGmap = MagicMock(information.Information.ask_gmap)
@@ -62,11 +60,9 @@ def test_ajax_response(client, monkeypatch):
     }
     """
     MockGooglemaps = MagicMock(information.googlemaps)
-    MockGooglemaps.return_value = MagicMock()
     monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
 
     MockMediawiki = MagicMock(information.mediawiki)
-    MockMediawiki.return_value = MagicMock()
     monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
 
     MockAskGmap = MagicMock(information.Information.ask_gmap)
@@ -100,11 +96,9 @@ def test_ajax_response_wiki_second(client, monkeypatch):
     }
     """
     MockGooglemaps = MagicMock(information.googlemaps)
-    MockGooglemaps.return_value = MagicMock()
     monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
 
     MockMediawiki = MagicMock(information.mediawiki)
-    MockMediawiki.return_value = MagicMock()
     monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
 
     MockAskGmap = MagicMock(information.Information.ask_gmap)

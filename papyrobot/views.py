@@ -38,10 +38,6 @@ def ajax_request():
                 street_city=info.street_city,
                 story=info.story)
         
-        no_result_file = open("papyrobot/static/tmp/no_result.log", "a")
-        no_result_file.write(key_words + "\n")
-        no_result_file.close()
-        
         return jsonify(
             no_result=answer.response("no_result"),
             keywords=key_words

@@ -46,7 +46,9 @@ définition d'une liste de phrases à tester:
 * Dis Papy, c'est quoi l'adresse de l'Elysée?
 * Tu connais l'adresse de l'Opéra Garnier?
 
-Rédaction des pages de tests puis codage des modules pour obtenir des tests vert.
+Rédaction des pages de tests puis du code des modules pour obtenir les tests vert. (J'ai réussi à faire du TDD sur toutes les parties du module utils mais j'ai rédigé les tests de views.py après. Il a fallut que je recommence les tests avec les Mocks donc j'ai dû réécrire les tests après le code pour le module information)
+
+J'ai passé énormément de temps sur les Mock avec l'utilisation de monkeypatch et MagicMock.
 
 ## API Google Map et Wikimedia
 
@@ -79,3 +81,5 @@ Utilisation de l'API geocode pour récupérer:
 Utilisation du paquet MediaWiki https://github.com/zikzakmedia/python-mediawiki
 
 Récupération du contenu de la page (*content*) et découpage de la partie souhaitée => afficher dans la réponse
+
+J'ai également fait une version avec requests directement sur l'adresse pour tester.
