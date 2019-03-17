@@ -8,3 +8,4 @@ doc/API/key.py
 htmlcov/
 .pytest_cache/
 .coverage
+__test_*
