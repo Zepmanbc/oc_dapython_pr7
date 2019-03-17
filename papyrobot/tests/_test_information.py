@@ -46,6 +46,21 @@ class TestInformation():
         result = self.infos.ask_gmap(key_words)
         assert not result
 
+    def test_ask_gmap_fail_mk(self, monkeypatch):
+        class MockClient:
+            def __init__(self, key):
+                pass
+
+            def geocode(self, search):
+                return []
+
+        monkeypatch.setattr('papyrobot.utils.information.googlemaps.Client', MockClient)
+
+        infos = information.Information()
+        key_words = "toto"
+        result = infos.ask_gmap(key_words)
+        assert not result
+
     def test_ask_gmap_no_route(self):
         self.infos.gmaps.geocode.return_value = [{
                 'address_components': [

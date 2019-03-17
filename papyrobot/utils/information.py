@@ -5,7 +5,6 @@ import requests
 
 import googlemaps
 import mediawiki
-from mediawiki import MediaWiki
 
 
 class Information():
@@ -40,7 +39,7 @@ class Information():
             story (str)
 
         """
-        self.wikipedia = MediaWiki()
+        self.wikipedia = mediawiki.MediaWiki()
         self.wikipedia.language = "fr"
 
         self.gmaps = googlemaps.Client(key=os.environ['GMAPKEY_BACK'])
@@ -119,24 +118,63 @@ class Information():
         search = self.wikipedia.search(query)
         if search:
             try:
-                result = self.wikipedia.page(search[0])
+                result = self.wikipedia.page(search[0]).content
             except mediawiki.exceptions.DisambiguationError:
                 return False
-            self._wiki_story_extract(result.content)
+            self._wiki_story_extract(result)
             return True
         return False
     
     def ask_wiki_api(self, keyword):
+        """Ask Wikipedia API.
+
+        Args:
+            query (str): usualy city_street string
+                         can be keywords
+
+        Return:
+            False if there is no API return
+            True if there is an API return
+            story (str) is filled
+        """
+        page_title = self._ask_wiki_api_first_page(keyword)
+        if page_title:
+            page_content = self._ask_wiki_api_content(page_title)
+            self._wiki_story_extract(page_content)
+            return True
+        return False
+    
+    def _ask_wiki_api_first_page(self, keyword):
+        """Ask for list a pages and return the first.
+
+        Args:
+            keyword (str): usualy city_street string
+                         can be keywords
+        Returns:
+            page_title (str)
+            False: if no result
+        """
         query = "https://fr.wikipedia.org/w/api.php?action=query&list=search&utf8&format=json&srsearch={}".format(keyword)
-        query_pages = requests.get(query).json()
-        self.page_title = query_pages["query"]["search"][0]["title"]
-        # get wiki page content
+        query_pages = requests.get(query)
+        query_pages = query_pages.json()
+        if query_pages["query"]["search"]:
+            page_title = query_pages["query"]["search"][0]["title"]
+            return page_title
+        return False
+    
+    def _ask_wiki_api_content(self, page_title):
+        """Ask for content of wiki page.
+
+        Args:
+            page_title (str)
+        Returns:
+            page_content (str)
+        """
         query = "https://fr.wikipedia.org/w/api.php?action=query&format=json&utf8&explaintext&prop=extracts&exlimit=1&titles={}".format(page_title)
-        query_page = requests.get(query)
-        page_nbr = next(iter(query_page.json()["query"]["pages"]))
-        page_content = query_page.json()["query"]["pages"][page_nbr]["extract"]
-        # Extract Story and fill self.story
-        self._wiki_story_extract(page_content)
+        query_page = requests.get(query).json()
+        page_nbr = next(iter(query_page["query"]["pages"]))
+        page_content = query_page["query"]["pages"][page_nbr]["extract"]
+        return page_content
 
     # def ask_wiki_gps(self):
     #     # geosearch
@@ -175,7 +213,7 @@ if __name__ == "__main__":
     # query = "zone 51"
     # keyword_gmap = question.analyze(query)
     # keyword_gmap = "tour pise"
-    info = Information()
+    # info = Information()
     # if info.ask_gmap(keyword_gmap):
     #     print(info.formatted_address)
     #     print(info.location)
@@ -183,7 +221,7 @@ if __name__ == "__main__":
     # else:
     #     print("pas clair")
 
-    info.street_city = 'Cité Paradis Paris'
+    # info.street_city = 'Cité Paradis Paris'
     # info.street_city = 'Place Charles de Gaulle Paris'
     # # info.street_city = 'Champ de Mars Paris'
     # # info.street_city = 'Rue du Faubourg Saint-Honoré Paris'
@@ -193,7 +231,11 @@ if __name__ == "__main__":
     #     info.ask_wiki(keyword_gmap)
     # print(info.story)
 
-    info.ask_wiki_api(info.street_city)
-    print(info.story)
+    # info.street_city = 'Cité Paradis Paris'  # OK
+    # info.street_city = 'Homey Airport'  # no result
+    # info.street_city = 'Cité par'  # raise error
+
+    # info.ask_wiki_api(info.street_city)
+    # print(info.story)
 
     pass
