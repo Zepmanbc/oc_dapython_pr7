@@ -26,8 +26,14 @@ def test_ajax_no_response(client, monkeypatch):
     "no_result": "hum hum... Je ne sais pas, peut \u00eatre que je pourrais te r\u00e9pondre si tu me posais une question \u00e0 laquelle j'ai une r\u00e9ponse!"
     }
     """
-    information.googlemaps = MagicMock()
-    information.mediawiki = MagicMock()
+    MockGooglemaps = MagicMock(information.googlemaps)
+    MockGooglemaps.return_value = MagicMock()
+    monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
+
+    MockMediawiki = MagicMock(information.mediawiki)
+    MockMediawiki.return_value = MagicMock()
+    monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
+
     MockAskGmap = MagicMock(information.Information.ask_gmap)
     MockAskGmap.return_value = False
 
@@ -55,8 +61,14 @@ def test_ajax_response(client, monkeypatch):
     "street_city": "Cit\u00e9 Paradis Paris"
     }
     """
-    information.googlemaps = MagicMock()
-    information.mediawiki = MagicMock()
+    MockGooglemaps = MagicMock(information.googlemaps)
+    MockGooglemaps.return_value = MagicMock()
+    monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
+
+    MockMediawiki = MagicMock(information.mediawiki)
+    MockMediawiki.return_value = MagicMock()
+    monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
+
     MockAskGmap = MagicMock(information.Information.ask_gmap)
     MockAskGmap.return_value = True
     monkeypatch.setattr('papyrobot.utils.information.Information.ask_gmap', MockAskGmap)
@@ -87,8 +99,14 @@ def test_ajax_response_wiki_second(client, monkeypatch):
     "street_city": "Homey Airport"
     }
     """
-    information.googlemaps = MagicMock()
-    information.mediawiki = MagicMock()
+    MockGooglemaps = MagicMock(information.googlemaps)
+    MockGooglemaps.return_value = MagicMock()
+    monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
+
+    MockMediawiki = MagicMock(information.mediawiki)
+    MockMediawiki.return_value = MagicMock()
+    monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
+
     MockAskGmap = MagicMock(information.Information.ask_gmap)
     MockAskGmap.return_value = True
     monkeypatch.setattr('papyrobot.utils.information.Information.ask_gmap', MockAskGmap)
