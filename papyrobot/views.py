@@ -27,8 +27,8 @@ def ajax_request():
         if info.ask_gmap(key_words):
             if not info.ask_wiki(info.street_city):
                 info.ask_wiki(key_words)
-            if not info.story:
-                info.story = "... en fait non, je n'y suis jamais allé"
+            # if not info.story:
+            #     info.story = "... en fait non, je n'y suis jamais allé"
             return jsonify(
                 intro=answer.response("intro"),
                 introduce_story=answer.response("introduce_story"),
@@ -39,14 +39,13 @@ def ajax_request():
                 story=info.story)
         
         no_result_file = open("papyrobot/static/tmp/no_result.log", "a")
-        no_result_file.write(key_words)
+        no_result_file.write(key_words + "\n")
         no_result_file.close()
         
         return jsonify(
             no_result=answer.response("no_result"),
             keywords=key_words
             )
-        
 
-if __name__ == "__main__":
-    app.run()
+# if __name__ == "__main__":
+#     app.run()
