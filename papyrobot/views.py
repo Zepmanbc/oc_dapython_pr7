@@ -15,6 +15,7 @@ def index():
     """Index page"""
     return render_template("index.html", GMAPKEY=os.environ['GMAPKEY_FRONT'])
 
+
 @app.route('/ajax', methods=['GET'])
 def ajax_request():
     """Request page, return json."""
@@ -37,7 +38,6 @@ def ajax_request():
                 location=info.location,
                 street_city=info.street_city,
                 story=info.story)
-        
         return jsonify(
             no_result=answer.response("no_result"),
             keywords=key_words

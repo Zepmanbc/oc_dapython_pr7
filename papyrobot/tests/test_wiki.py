@@ -1,15 +1,17 @@
 #! /usr/bin/env python3
 
-import pytest
+# import pytest
 from unittest.mock import MagicMock
 
 from papyrobot.utils import information
+
 
 class TestInformationMEdiaWiki():
 
     def test_ask_wiki_ok_mk(self, monkeypatch):
         MockGooglemaps = MagicMock(information.googlemaps)
         monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
+
         class MockSearch:
             def __init__(self):
                 pass
@@ -17,10 +19,10 @@ class TestInformationMEdiaWiki():
             def search(self, query):
                 data = ['']
                 return data
-                
+
             def page(self, _title):
                 class FakePage():
-                    def __init__(self,_title):
+                    def __init__(self, _title):
                         pass
 
                     @property
@@ -41,6 +43,7 @@ class TestInformationMEdiaWiki():
     def test_ask_wiki_no_situation_mk(self, monkeypatch):
         MockGooglemaps = MagicMock(information.googlemaps)
         monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
+
         class MockSearch:
             def __init__(self):
                 pass
@@ -48,10 +51,10 @@ class TestInformationMEdiaWiki():
             def search(self, query):
                 data = ['']
                 return data
-                
+
             def page(self, _title):
                 class FakePage():
-                    def __init__(self,_title):
+                    def __init__(self, _title):
                         pass
 
                     @property
@@ -72,16 +75,17 @@ class TestInformationMEdiaWiki():
     def test_ask_wiki_fail_mk(self, monkeypatch):
         MockGooglemaps = MagicMock(information.googlemaps)
         monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
+
         class MockSearch:
             def __init__(self):
                 pass
 
             def search(self, query):
                 return ['']
-                
+
             def page(self, _title):
                 class FakePage():
-                    def __init__(self,_title):
+                    def __init__(self, _title):
                         raise information.mediawiki.exceptions.DisambiguationError('', [''], '')
                 return FakePage(_title)
 
@@ -96,6 +100,7 @@ class TestInformationMEdiaWiki():
     def test_ask_wiki_false_mk(self, monkeypatch):
         MockGooglemaps = MagicMock(information.googlemaps)
         monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
+
         class MockSearch:
             def __init__(self):
                 pass
@@ -111,8 +116,8 @@ class TestInformationMEdiaWiki():
         result = infos.ask_wiki(key_words)
         assert not result
 
+
 class TestInformationWikiAPI():
-        
 
     def test_ask_wikiapi_ok_mk(self, monkeypatch):
         MockGooglemaps = MagicMock(information.googlemaps)
@@ -134,7 +139,7 @@ class TestInformationWikiAPI():
         result = infos.story
         waited = "La cité Paradis est une voie publique située dans le 10e arrondissement de Paris. Elle est en forme de té, une branche débouche au 43, rue de Paradis, la deuxième au 57, rue d'Hauteville et la troisième en impasse."
         assert result == waited
-    
+
     def test_ask_wikiapi_fail_mk(self, monkeypatch):
         MockGooglemaps = MagicMock(information.googlemaps)
         monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
@@ -161,6 +166,7 @@ class TestInformationWikiAPI():
         class MockReturn:
             def __init__(self, query):
                 pass
+
             def json(self):
                 results = {'query': {'search': [{'title': 'Cité Paradis'}]}}
                 return results
@@ -182,6 +188,7 @@ class TestInformationWikiAPI():
         class MockReturn:
             def __init__(self, query):
                 pass
+
             def json(self):
                 results = {'query': {'search': []}}
                 return results
@@ -202,10 +209,11 @@ class TestInformationWikiAPI():
         class MockReturn:
             def __init__(self, query):
                 pass
+
             def json(self):
-                results = {'query': {'pages': { "1234":
+                results = {'query': {'pages': {"1234":
                         {
-                        "extract": "La cité Paradis est une voie publique située dans le 10e arrondissement de Paris.\n\n\n== Situation et accès ==\nLa cité Paradis est une voie publique située dans le 10e arrondissement de Paris. Elle est en forme de té, une branche débouche au 43, rue de Paradis, la deuxième au 57, rue d'Hauteville et la troisième en impasse.\n\nVues de la cité\n\t\t\n\t\t\nCe site est desservi par les lignes \u2009\u200d\u2009\u200d à la station de métro Bonne-Nouvelle et par la ligne \u2009\u200d à la station Poissonnière.\n\n\n== Origine du nom ==\nElle porte ce nom en raison de sa proximité avec la rue éponyme.\n\n\n== Historique ==\nLa cité Paradis a été aménagée sur les anciens jardins de l'hôtel Titon dont la façade arrière est visible au fond de l'impasse.\nLa partie débouchant rue de Paradis a été ouverte en 1893 et celle débouchant rue d'Hauteville en 1906.\n\n\n== Références ==\n\n\n== Bibliographie ==\nJacques Hillairet, Dictionnaire historique des rues de Paris, Paris, Les Éditions de Minuit, 1972, 1985, 1991, 1997 , etc. (1re éd. 1960), 1 476 p., 2 vol.  [détail des éditions] (ISBN 2-7073-1054-9, OCLC 466966117, présentation en ligne).\n\n\n== Annexes ==\n\n\n=== Articles connexes ===\nListe des voies du 10e arrondissement de Paris\n\n\n=== Liens externes ===\nCité Paradis (mairie de Paris) Portail de Paris   Portail de la route"
+                            "extract": "La cité Paradis est une voie publique située dans le 10e arrondissement de Paris.\n\n\n== Situation et accès ==\nLa cité Paradis est une voie publique située dans le 10e arrondissement de Paris. Elle est en forme de té, une branche débouche au 43, rue de Paradis, la deuxième au 57, rue d'Hauteville et la troisième en impasse.\n\nVues de la cité\n\t\t\n\t\t\nCe site est desservi par les lignes \u2009\u200d\u2009\u200d à la station de métro Bonne-Nouvelle et par la ligne \u2009\u200d à la station Poissonnière.\n\n\n== Origine du nom ==\nElle porte ce nom en raison de sa proximité avec la rue éponyme.\n\n\n== Historique ==\nLa cité Paradis a été aménagée sur les anciens jardins de l'hôtel Titon dont la façade arrière est visible au fond de l'impasse.\nLa partie débouchant rue de Paradis a été ouverte en 1893 et celle débouchant rue d'Hauteville en 1906.\n\n\n== Références ==\n\n\n== Bibliographie ==\nJacques Hillairet, Dictionnaire historique des rues de Paris, Paris, Les Éditions de Minuit, 1972, 1985, 1991, 1997 , etc. (1re éd. 1960), 1 476 p., 2 vol.  [détail des éditions] (ISBN 2-7073-1054-9, OCLC 466966117, présentation en ligne).\n\n\n== Annexes ==\n\n\n=== Articles connexes ===\nListe des voies du 10e arrondissement de Paris\n\n\n=== Liens externes ===\nCité Paradis (mairie de Paris) Portail de Paris   Portail de la route"
                         }
                     }}}
                 return results

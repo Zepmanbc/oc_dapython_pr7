@@ -19,12 +19,12 @@ class Information():
         print(info.location)            # (48.8747265, 2.3505517)
         print(info.street_city)         # Cité Paradis Paris
     if not info.ask_wiki(info.street_city):
-        info.ask_wiki(keyword_gmap)     # if street_city does not return a result
+        info.ask_wiki(keyword_gmap)     # if street_city does not return result
                                         # it's possible to try with key words
     print(info.story)                   # return string from wikipedia
 
     """
-    
+
     def __init__(self):
         """Init Information class
 
@@ -97,7 +97,6 @@ class Information():
                 return component['long_name']
         return ''
 
-
     def ask_wiki(self, query):
         """Ask Wikipedia API.
 
@@ -124,7 +123,7 @@ class Information():
             self._wiki_story_extract(result)
             return True
         return False
-    
+
     def ask_wiki_api(self, keyword):
         """Ask Wikipedia API.
 
@@ -143,7 +142,7 @@ class Information():
             self._wiki_story_extract(page_content)
             return True
         return False
-    
+
     def _ask_wiki_api_first_page(self, keyword):
         """Ask for list a pages and return the first.
 
@@ -154,14 +153,15 @@ class Information():
             page_title (str)
             False: if no result
         """
-        query = "https://fr.wikipedia.org/w/api.php?action=query&list=search&utf8&format=json&srsearch={}".format(keyword)
+        query = "https://fr.wikipedia.org/w/api.php?action=query&list=search" \
+            "&utf8&format=json&srsearch={}".format(keyword)
         query_pages = requests.get(query)
         query_pages = query_pages.json()
         if query_pages["query"]["search"]:
             page_title = query_pages["query"]["search"][0]["title"]
             return page_title
         return False
-    
+
     def _ask_wiki_api_content(self, page_title):
         """Ask for content of wiki page.
 
@@ -170,46 +170,52 @@ class Information():
         Returns:
             page_content (str)
         """
-        query = "https://fr.wikipedia.org/w/api.php?action=query&format=json&utf8&explaintext&prop=extracts&exlimit=1&titles={}".format(page_title)
+        query = "https://fr.wikipedia.org/w/api.php?" \
+            "action=query&format=json&utf8" \
+            "&explaintext&prop=extracts&exlimit=1&titles={}".format(page_title)
         query_page = requests.get(query).json()
         page_nbr = next(iter(query_page["query"]["pages"]))
         page_content = query_page["query"]["pages"][page_nbr]["extract"]
         return page_content
 
-    # def ask_wiki_gps(self):
-    #     # geosearch
-    #     (lng, lat) = self.location
-    #     query = "https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gsradius=10000&gslimit=1&format=json&gscoord={}|{}".format(lng, lat)
-    #     query_pages = requests.get(query)
-    #     page_title = query_pages.json()["query"]["geosearch"][0]["title"]
-    #     # get wiki page content
-    #     query = "https://fr.wikipedia.org/w/api.php?action=query&format=json&utf8&explaintext&prop=extracts&exlimit=1&titles={}".format(page_title)
-    #     query_page = requests.get(query)
-    #     page_nbr = next(iter(query_page.json()["query"]["pages"]))
-    #     page_content = query_page.json()["query"]["pages"][page_nbr]["extract"]
-    #     # Extract Story and fill self.story
-    #     self._wiki_story_extract(page_content)
+    def ask_wiki_gps(self):
+        # geosearch
+        (lng, lat) = self.location
+        query = "https://en.wikipedia.org/w/api.php?action=query" \
+            "&list=geosearch&gsradius=10000&gslimit=1" \
+            "&format=json&gscoord={}|{}".format(lng, lat)
+        query_pages = requests.get(query)
+        page_title = query_pages.json()["query"]["geosearch"][0]["title"]
+        # get wiki page content
+        query = "https://fr.wikipedia.org/w/api.php?action=query" \
+            "&format=json&utf8&explaintext&prop=extracts" \
+            "&exlimit=1&titles={}".format(page_title)
+        query_page = requests.get(query)
+        page_nbr = next(iter(query_page.json()["query"]["pages"]))
+        page_content = query_page.json()["query"]["pages"][page_nbr]["extract"]
+        # Extract Story and fill self.story
+        self._wiki_story_extract(page_content)
 
     def _wiki_story_extract(self, content):
         if "== Situation et accès ==" in content:
             content = content.split("== Situation et accès ==")[1]
-            content = [x for x in content.split('\n') if x is not ''][0]
+            content = [x for x in content.split('\n') if x != ''][0]
         else:
             content = content.split("==")[0].replace("\n", "")
         self.story = content
-    
-    
+
 
 if __name__ == "__main__":
     # import os
     # from question import Question
     # os.system('clear')
     # question = Question()
-    # query = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
-    # # query = "où se trouve l'Arc de Triomphe?"
-    # # query = "Quelle est l'adresse de la Tour Eiffel?"
-    # # query = "Dis Papy, c'est quoi l'adresse de l'Elysée?"
-    # # query = "Tu connais l'adresse de l'Opéra Garnier?"
+    # query = "Salut GrandPy ! Est-ce que tu connais l'adresse" \
+    #     " d'OpenClassrooms ?"
+    # query = "où se trouve l'Arc de Triomphe?"
+    # query = "Quelle est l'adresse de la Tour Eiffel?"
+    # query = "Dis Papy, c'est quoi l'adresse de l'Elysée?"
+    # query = "Tu connais l'adresse de l'Opéra Garnier?"
     # query = "zone 51"
     # keyword_gmap = question.analyze(query)
     # keyword_gmap = "tour pise"

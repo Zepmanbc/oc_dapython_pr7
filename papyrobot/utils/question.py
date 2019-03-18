@@ -9,7 +9,8 @@ class Question():
     """Question Class.
 
     question = Question()
-    question.analyse("Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?")
+    query = "Salut GrandPy! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
+    question.analyse(query)
 
     return "OpenClassrooms"
     """
@@ -37,12 +38,13 @@ class Question():
 
         """
         # remove punctuation from query
-        query =  query.translate(query.maketrans(punctuation, " " * len(punctuation)))
+        query = query.translate(query.maketrans(punctuation, " " * len(punctuation)))
         # remove GrandPy, PyBot like words
         query = re.sub(r"(([a-zA-Z-]*[bB]ot|[a-zA-Z-]*[pP]y))", "", query)
         # remove stopwords
         analyzed = ' '.join([x for x in query.split() if not x.lower() in self.stopwords])
         return analyzed
+
 
 if __name__ == "__main__":
     # import os
