@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
-import sys
 import pytest
 
 from papyrobot.utils.answer import Answer
+
 
 class TestAnswer():
 

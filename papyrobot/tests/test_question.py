@@ -1,10 +1,6 @@
 #! /usr/bin/env python3
 # import sys
-import pytest
 
-# sys.path.append('papyrobot/')
-# import utils.question
-# from utils.question import Question
 from papyrobot.utils.question import Question
 
 """
@@ -14,6 +10,7 @@ Quelle est l'adresse de la Tour Eiffel?
 Dis Papy, c'est quoi l'adresse de l'Elysée?
 Tu connais l'adresse de l'Opéra Garnier?
 """
+
 
 class TestAnswer():
 
