@@ -178,25 +178,35 @@ class Information():
         page_content = query_page["query"]["pages"][page_nbr]["extract"]
         return page_content
 
-    def ask_wiki_gps(self):
-        # geosearch
-        (lng, lat) = self.location
-        query = "https://en.wikipedia.org/w/api.php?action=query" \
-            "&list=geosearch&gsradius=10000&gslimit=1" \
-            "&format=json&gscoord={}|{}".format(lng, lat)
-        query_pages = requests.get(query)
-        page_title = query_pages.json()["query"]["geosearch"][0]["title"]
-        # get wiki page content
-        query = "https://fr.wikipedia.org/w/api.php?action=query" \
-            "&format=json&utf8&explaintext&prop=extracts" \
-            "&exlimit=1&titles={}".format(page_title)
-        query_page = requests.get(query)
-        page_nbr = next(iter(query_page.json()["query"]["pages"]))
-        page_content = query_page.json()["query"]["pages"][page_nbr]["extract"]
-        # Extract Story and fill self.story
-        self._wiki_story_extract(page_content)
+    # def ask_wiki_gps(self):
+    #     # geosearch
+    #     (lng, lat) = self.location
+    #     query = "https://en.wikipedia.org/w/api.php?action=query" \
+    #         "&list=geosearch&gsradius=10000&gslimit=1" \
+    #         "&format=json&gscoord={}|{}".format(lng, lat)
+    #     query_pages = requests.get(query)
+    #     page_title = query_pages.json()["query"]["geosearch"][0]["title"]
+    #     # get wiki page content
+    #     query = "https://fr.wikipedia.org/w/api.php?action=query" \
+    #         "&format=json&utf8&explaintext&prop=extracts" \
+    #         "&exlimit=1&titles={}".format(page_title)
+    #     query_page = requests.get(query)
+    #     page_nbr = next(iter(query_page.json()["query"]["pages"]))
+    #     page_content = query_page.json()["query"]["pages"][page_nbr]["extract"]
+    #     # Extract Story and fill self.story
+    #     self._wiki_story_extract(page_content)
 
     def _wiki_story_extract(self, content):
+        """Extract the story from wiki content.
+
+            Extract the == Situation et accès == part
+            if it does not exist, extract the first sentence
+
+            Args:
+                content (str): the text from wiki page
+            Return:
+                self.story filled
+        """
         if "== Situation et accès ==" in content:
             content = content.split("== Situation et accès ==")[1]
             content = [x for x in content.split('\n') if x != ''][0]

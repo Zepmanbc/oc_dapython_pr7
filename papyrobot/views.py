@@ -42,6 +42,3 @@ def ajax_request():
             no_result=answer.response("no_result"),
             keywords=key_words
             )
-
-# if __name__ == "__main__":
-#     app.run()
