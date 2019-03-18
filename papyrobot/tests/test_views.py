@@ -6,6 +6,8 @@ from flask import Flask, render_template, jsonify, request
 
 from papyrobot import app
 from papyrobot.utils import information
+from papyrobot.utils import answer
+from papyrobot.utils import question
 
 
 @pytest.fixture
@@ -32,9 +34,14 @@ def test_ajax_no_response(client, monkeypatch):
     MockMediawiki = MagicMock(information.mediawiki)
     monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
 
+    MockQuestion = MagicMock(question.Question)
+    MockQuestion.analyze.return_value = ""
+
+    MockAnswer = MagicMock(answer.Answer)
+    MockAnswer.response.return_value = ""
+
     MockAskGmap = MagicMock(information.Information.ask_gmap)
     MockAskGmap.return_value = False
-
     monkeypatch.setattr('papyrobot.utils.information.Information.ask_gmap', MockAskGmap)
 
     response = client.get("/ajax?question=dsfsfdafgsfdg")
@@ -64,6 +71,12 @@ def test_ajax_response(client, monkeypatch):
 
     MockMediawiki = MagicMock(information.mediawiki)
     monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
+
+    MockQuestion = MagicMock(question.Question)
+    MockQuestion.analyze.return_value = ""
+
+    MockAnswer = MagicMock(answer.Answer)
+    MockAnswer.response.return_value = ""
 
     MockAskGmap = MagicMock(information.Information.ask_gmap)
     MockAskGmap.return_value = True
@@ -100,6 +113,12 @@ def test_ajax_response_wiki_second(client, monkeypatch):
 
     MockMediawiki = MagicMock(information.mediawiki)
     monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
+
+    MockQuestion = MagicMock(question.Question)
+    MockQuestion.analyze.return_value = ""
+
+    MockAnswer = MagicMock(answer.Answer)
+    MockAnswer.response.return_value = ""
 
     MockAskGmap = MagicMock(information.Information.ask_gmap)
     MockAskGmap.return_value = True
