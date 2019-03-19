@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-# import pytest
+import pytest
 from unittest.mock import MagicMock
 
 from papyrobot.utils import information
@@ -8,9 +8,12 @@ from papyrobot.utils import information
 
 class TestInformationMEdiaWiki():
 
-    def test_ask_wiki_ok_mk(self, monkeypatch):
-        MockGooglemaps = MagicMock(information.googlemaps)
-        monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
+    @pytest.fixture
+    def MockGmap(self, monkeypatch):
+        MockGm = MagicMock(information.googlemaps)
+        monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGm)
+
+    def test_ask_wiki_ok_mk(self, MockGmap, monkeypatch):
 
         class MockSearch:
             def __init__(self):
@@ -40,9 +43,7 @@ class TestInformationMEdiaWiki():
         waited = "La cité Paradis est une voie publique située dans le 10e arrondissement de Paris. Elle est en forme de té, une branche débouche au 43, rue de Paradis, la deuxième au 57, rue d'Hauteville et la troisième en impasse."
         assert result == waited
 
-    def test_ask_wiki_no_situation_mk(self, monkeypatch):
-        MockGooglemaps = MagicMock(information.googlemaps)
-        monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
+    def test_ask_wiki_no_situation_mk(self, MockGmap, monkeypatch):
 
         class MockSearch:
             def __init__(self):
@@ -72,9 +73,7 @@ class TestInformationMEdiaWiki():
         waited = "Le Champ-de-Mars est un vaste jardin public, entièrement ouvert et situé à Paris dans le 7e arrondissement, entre la tour Eiffel au nord-ouest et l'École militaire au sud-est. Avec ses 24,5 ha, le jardin du Champ-de-Mars est l'un des plus grands espaces verts de Paris. Riche d'une histoire bicentenaire, le Champ-de-Mars accueille les Parisiens et les touristes toute l'année autour d'un vaste ensemble d'activités."
         assert result == waited
 
-    def test_ask_wiki_fail_mk(self, monkeypatch):
-        MockGooglemaps = MagicMock(information.googlemaps)
-        monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
+    def test_ask_wiki_fail_mk(self, MockGmap, monkeypatch):
 
         class MockSearch:
             def __init__(self):
@@ -97,9 +96,7 @@ class TestInformationMEdiaWiki():
         result = infos.ask_wiki(key_words)
         assert not result
 
-    def test_ask_wiki_false_mk(self, monkeypatch):
-        MockGooglemaps = MagicMock(information.googlemaps)
-        monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
+    def test_ask_wiki_false_mk(self, MockGmap, monkeypatch):
 
         class MockSearch:
             def __init__(self):
@@ -119,11 +116,14 @@ class TestInformationMEdiaWiki():
 
 class TestInformationWikiAPI():
 
-    def test_ask_wikiapi_ok_mk(self, monkeypatch):
-        MockGooglemaps = MagicMock(information.googlemaps)
-        monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
-        MockMediawiki = MagicMock(information.mediawiki)
-        monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
+    @pytest.fixture
+    def MockGmMw(self, monkeypatch):
+        MockGmaps = MagicMock(information.googlemaps)
+        monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGmaps)
+        MockMw = MagicMock(information.mediawiki)
+        monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMw)
+
+    def test_ask_wikiapi_ok_mk(self, MockGmMw, monkeypatch):
 
         MockFirstPage = MagicMock(information.Information._ask_wiki_api_first_page)
         MockFirstPage.return_value = 'title'
@@ -140,11 +140,7 @@ class TestInformationWikiAPI():
         waited = "La cité Paradis est une voie publique située dans le 10e arrondissement de Paris. Elle est en forme de té, une branche débouche au 43, rue de Paradis, la deuxième au 57, rue d'Hauteville et la troisième en impasse."
         assert result == waited
 
-    def test_ask_wikiapi_fail_mk(self, monkeypatch):
-        MockGooglemaps = MagicMock(information.googlemaps)
-        monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
-        MockMediawiki = MagicMock(information.mediawiki)
-        monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
+    def test_ask_wikiapi_fail_mk(self, MockGmMw, monkeypatch):
 
         MockFirstPage = MagicMock(information.Information._ask_wiki_api_first_page)
         MockFirstPage.return_value = []
@@ -157,11 +153,7 @@ class TestInformationWikiAPI():
         result = infos.story
         assert not result
 
-    def test_ask_wiki_api_first_page_ok(self, monkeypatch):
-        MockGooglemaps = MagicMock(information.googlemaps)
-        monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
-        MockMediawiki = MagicMock(information.mediawiki)
-        monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
+    def test_ask_wiki_api_first_page_ok(self, MockGmMw, monkeypatch):
 
         class MockReturn:
             def __init__(self, query):
@@ -179,11 +171,7 @@ class TestInformationWikiAPI():
         waited = "Cité Paradis"
         assert result == waited
 
-    def test_ask_wiki_api_first_page_fail(self, monkeypatch):
-        MockGooglemaps = MagicMock(information.googlemaps)
-        monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
-        MockMediawiki = MagicMock(information.mediawiki)
-        monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
+    def test_ask_wiki_api_first_page_fail(self, MockGmMw, monkeypatch):
 
         class MockReturn:
             def __init__(self, query):
@@ -200,11 +188,7 @@ class TestInformationWikiAPI():
         result = infos._ask_wiki_api_first_page(keywords)
         assert not result
 
-    def test_ask_wiki_api_content_ok(self, monkeypatch):
-        MockGooglemaps = MagicMock(information.googlemaps)
-        monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
-        MockMediawiki = MagicMock(information.mediawiki)
-        monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
+    def test_ask_wiki_api_content_ok(self, MockGmMw, monkeypatch):
 
         class MockReturn:
             def __init__(self, query):
