@@ -36,9 +36,11 @@ def test_index(client):
     response = client.get("/")
     assert response.status_code == 200
 
+
 def test_whatever_adress(client):
     response = client.get("/whatever/adress")
     assert response.status_code == 302
+
 
 def test_ajax_no_response(client, MockGmMw, monkeypatch):
     """ /ajax?question=dsfsfdafgsfdg
