@@ -27,7 +27,7 @@ header{
 }
 
 header img{ /* for papy picture in header */
-    height: 68px;
+    height: 65px;
 }
 
 footer{
@@ -117,4 +117,16 @@ input{
 
 .map {
     height: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+    body{
+        font-size: 4vw;
+    }
+    header, footer{
+        font-size:100%;
+    }
+    .papySpeak, .userSpeak{
+        padding: 10px;
+    }
 }
