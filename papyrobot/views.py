@@ -3,9 +3,9 @@
 import os
 
 from flask import Flask, render_template, jsonify, request, redirect, url_for
-from papyrobot.utils.information import Information
-from papyrobot.utils.question import Question
-from papyrobot.utils.answer import Answer
+from .utils.information import Information
+from .utils.question import Question
+from .utils.answer import Answer
 
 app = Flask(__name__)
 
