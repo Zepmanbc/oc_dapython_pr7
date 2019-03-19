@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-
+import pytest
 from unittest.mock import MagicMock
 
 from papyrobot.utils import information
@@ -7,10 +7,12 @@ from papyrobot.utils import information
 
 class TestInformationGMap():
 
-    def setup(self):
-        information.mediawiki.MediaWiki = MagicMock()
+    @pytest.fixture
+    def MockMediaWiki(self, monkeypatch):
+        Mock_mw = MagicMock(information.mediawiki)
+        monkeypatch.setattr('papyrobot.utils.information.mediawiki', Mock_mw)
 
-    def test_ask_gmap_ok_mk(self, monkeypatch):
+    def test_ask_gmap_ok_mk(self, MockMediaWiki, monkeypatch):
         class MockClient:
             def __init__(self, key):
                 pass
@@ -27,7 +29,7 @@ class TestInformationGMap():
         waited = ("7 Cité Paradis, 75010 Paris, France", 'Cité Paradis Paris', (48.8747265, 2.3505517))
         assert result == waited
 
-    def test_ask_gmap_fail_mk(self, monkeypatch):
+    def test_ask_gmap_fail_mk(self, MockMediaWiki, monkeypatch):
         class MockClient:
             def __init__(self, key):
                 pass
@@ -42,7 +44,7 @@ class TestInformationGMap():
         result = infos.ask_gmap(key_words)
         assert not result
 
-    def test_ask_gmap_no_route_mk(self, monkeypatch):
+    def test_ask_gmap_no_route_mk(self, MockMediaWiki, monkeypatch):
         class MockClient:
             def __init__(self, key):
                 pass
@@ -69,7 +71,7 @@ class TestInformationGMap():
         waited = ("Pisa")
         assert result == waited
 
-    def test_ask_gmap_no_locality_mk(self, monkeypatch):
+    def test_ask_gmap_no_locality_mk(self, MockMediaWiki, monkeypatch):
         class MockClient:
             def __init__(self, key):
                 pass
