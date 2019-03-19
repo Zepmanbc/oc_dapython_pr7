@@ -1,10 +1,10 @@
 # Créez GrandPy Bot, le papy-robot 🤖 👴
 
-Github : https://github.com/Zepmanbc/oc_dapython_pr7
+Github : [https://github.com/Zepmanbc/oc_dapython_pr7](https://github.com/Zepmanbc/oc_dapython_pr7)
 
-Trello : https://trello.com/b/Wh1dkH9n/ocdapythonpr7
+Trello : [https://trello.com/b/Wh1dkH9n/ocdapythonpr7](https://trello.com/b/Wh1dkH9n/ocdapythonpr7)
 
-Lien Heroku : https://bc-ocdapythonpr7.herokuapp.com/
+Lien Heroku : [https://bc-ocdapythonpr7.herokuapp.com/](https://bc-ocdapythonpr7.herokuapp.com/)
 
 [Analyse Fonctionnelle](https://github.com/Zepmanbc/oc_dapython_pr7/blob/master/doc/analyse_fonctionelle.md)
 
@@ -120,11 +120,10 @@ J'ai également fait une version avec requests directement sur l'adresse pour te
     │   │   │   ├── ajax.js
     │   │   │   ├── bootstrap*
     │   │   │   └── front.js
-    │   │   ├── json
-    │   │   │   ├── dialog.json
-    │   │   │   ├── stopwords_custom.json
-    │   │   │   └── stopwords_fr.json
-    │   │   └── tmp
+    │   │   └── json
+    │   │       ├── dialog.json
+    │   │       ├── stopwords_custom.json
+    │   │       └── stopwords_fr.json
     │   ├── templates
     │   │   └── index.html
     │   ├── tests
@@ -135,9 +134,9 @@ J'ai également fait une version avec requests directement sur l'adresse pour te
     │   │   ├── test_views.py
     │   │   └── test_wiki.py
     │   ├── utils
+    │   │   ├── __init__.py
     │   │   ├── answer.py
     │   │   ├── information.py
-    │   │   ├── __init__.py
     │   │   └── question.py
     │   └── views.py
     ├── Pipfile
