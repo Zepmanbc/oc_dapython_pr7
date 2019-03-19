@@ -30,22 +30,22 @@ def ajax_request():
     query = request.args.get('question')
     if query is not None:
         question = Question()
-        key_words = question.analyze(query)
+        keywords = question.analyze(query)
         info = Information()
-        if info.ask_gmap(key_words):
+        if info.ask_gmap(keywords):
             if not info.ask_wiki(info.street_city):
-                info.ask_wiki(key_words)
+                info.ask_wiki(keywords)
             return jsonify(
                 intro=answer.response("intro"),
                 introduce_story=answer.response("introduce_story"),
-                keywords=key_words,
+                keywords=keywords,
                 formatted_address=info.formatted_address,
                 location=info.location,
                 street_city=info.street_city,
                 story=info.story)
         return jsonify(
             no_result=answer.response("no_result"),
-            keywords=key_words
+            keywords=keywords
             )
     else:
         return jsonify()

@@ -25,18 +25,14 @@
                 Papy Robot: l'information utile mais pas que !
             </div>
         </header>
+
         <div class="main-div row">
             <div class="container">
                 <div class="row">
                     <div class="container">
-                            <div id="history" class="row">
-                                <!-- <div class="col-12">
-                                    <div class="papySpeak">Quel lieu cherches tu?</div>
-                                </div>
-                                <div class="col-12 text-right">
-                                    <div class="userSpeak">c'est où Openclassrooms?c'est où Openclassrooms?c'est où Openclassrooms?c'est où Openclassrooms?c'est où Openclassrooms?c'est où Openclassrooms?c'est où Openclassrooms?</div>
-                                </div> -->
-                            </div>
+                        <div id="history" class="row">
+                            <!-- conversation history take place here -->
+                        </div>
                     </div>
                     <div id="papy-div" class="col-md-2 d-none d-md-block">
                         <img id="papy" class="img-fluid" src="{{ url_for('static', filename='img/grandpere.png') }}" />
@@ -47,13 +43,12 @@
                     </div>
                     
                     <div class="col-12">
-                        <!-- <form action="" method="GET"> -->
-                            <input class="form-control question" type="text" name="question" placeholder="Pose ta question ici et valide avec [Enter]" onsubmit="return validateFormOnSubmit(this);">
-                        <!-- </form> -->
+                        <input class="form-control question" type="text" name="question" placeholder="Pose ta question ici et valide avec [Enter]" onsubmit="return validateFormOnSubmit(this);">
                     </div>
                 </div>
             </div>
         </div>
+
         <footer class="row justify-content-center align-items-center">
             <a href="https://github.com/Zepmanbc/oc_dapython_pr7">
                 <img src="static/img/github5.png" alt="Github">
@@ -63,6 +58,7 @@
             </a>
             BENJAMIN.C
         </footer>
+        
         <div class="loading">
             <img src="{{ url_for('static', filename='img/loading.gif') }}" alt="Loading">
         </div>

@@ -10,7 +10,7 @@ if (reponse ok de Google map) then (oui)
 :Une réponse est affichée sur l'écran;
 end
 else (non)
-:un message est affiché disant que la quesiton n'etait pas claire;
+:un message est affiché disant que la question n'etait pas claire;
 end
 
 @enduml

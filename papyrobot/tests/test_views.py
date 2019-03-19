@@ -3,9 +3,7 @@ from unittest.mock import MagicMock
 import json
 
 from papyrobot import app
-from papyrobot.utils import information
-from papyrobot.utils import answer
-from papyrobot.utils import question
+from papyrobot.utils import information, answer, question
 
 
 @pytest.fixture
@@ -24,11 +22,9 @@ def MockGmMw(monkeypatch):
     monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMw)
 
     MockQuestion = MagicMock(question.Question)
-    # MockQuestion.analyze.return_value = ""
     monkeypatch.setattr(question, "Question", MockQuestion)
 
     MockAnswer = MagicMock(answer.Answer)
-    # MockAnswer.response.return_value = ""
     monkeypatch.setattr(answer, "Answer", MockAnswer)
 
 
@@ -37,7 +33,7 @@ def test_index(client):
     assert response.status_code == 200
 
 
-def test_whatever_adress(client):
+def test_whatever_adress_redirect(client):
     response = client.get("/whatever/adress")
     assert response.status_code == 302
 

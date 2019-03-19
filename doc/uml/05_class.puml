@@ -4,24 +4,25 @@ title Diagramme de classes
 class question{
     Analyse_question()
     --
-    question: String
-    key_words: List
+    keywords: String
 }
 
 class information{
     ask_gmap()
     ask_wiki()
     --
-    url_gmap: String
+    formatted_address: String
+    location: Tuple
+    street_city: String
     story: String
 }
 
-class reponse{
-    return_error()
-    return_answer()
+class Answer{
+    response()
     --
-    message_error: String
-    return_answer: List
+    intro: String
+    introduce_story: String
+    no_result: String
 }
 
 

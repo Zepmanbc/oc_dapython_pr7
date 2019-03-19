@@ -11,9 +11,6 @@ cloud Heroku{
     rectangle gunicorn{
         rectangle Flask
     }
-    rectangle nginx{
-        file static_data
-    }
 }
 
 cloud Google{
@@ -24,8 +21,7 @@ cloud Wikipedia{
     package API_wikimedia
 }
 
-nginx -- gunicorn : WSGI
-navigateur -- nginx : HTTPS
+navigateur -- gunicorn : HTTPS
 Flask -- API_Google_map : HTTPS
 Flask -- API_wikimedia : HTTPS
 

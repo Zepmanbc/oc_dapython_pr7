@@ -4,18 +4,13 @@ import pytest
 from papyrobot.utils.answer import Answer
 
 
-class TestAnswer():
+def test_intro_ok():
+    answer = Answer()
+    result = answer.response("intro")
+    assert type('') == type(result)
 
-    def setup(self):
-        self.answer = Answer()
 
-    def teardown(self):
-        pass
-
-    def test_intro_ok(self):
-        result = self.answer.response("intro")
-        assert type('') == type(result)
-
-    def test_nok(self):
-        with pytest.raises(KeyError):
-            self.answer.response("unknown_category")
+def test_nok():
+    answer = Answer()
+    with pytest.raises(KeyError):
+        answer.response("unknown_category")

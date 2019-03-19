@@ -11,7 +11,7 @@
 
 ## Règles fonctionnelles
 
-L'application est dans un navigateur web. l'utilisateur utilise un formulaire pour poser sa question et valide avec entrée.
+L'application est dans un navigateur web. l'utilisateur utilise un formulaire pour poser sa question et valide avec la touche [Enter].
 
 Sans recharger la page, les questions et les réponses s'enchainent à la maniére d'une messagerie instantanée.
 

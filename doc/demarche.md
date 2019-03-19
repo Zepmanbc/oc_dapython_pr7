@@ -22,9 +22,11 @@ Réalisation d'une maquette pour la version écran d'ordinateur et de smartphone
 
 [version smartphone format GIMP](https://github.com/Zepmanbc/oc_dapython_pr7/raw/master/doc/front/version_mobile.xcf)
 
+---
+
 ## Déploiement sur Heroku
 
-Création du fichier Procfile
+Création du fichier [Procfile](https://github.com/Zepmanbc/oc_dapython_pr7/blob/master/Procfile)
 
 Clonage du repo dans heroku
 
@@ -34,11 +36,13 @@ pour pousser le projet vers heroku
 
     git push heroku master
 
-mise en place du déploiement automatique depuis github après [validation de Travis](https://www.travis-ci.org/Zepmanbc/oc_dapython_pr7) et de [l'analyse de couverture](https://coveralls.io/github/Zepmanbc/oc_dapython_pr7)
+Mise en place du déploiement automatique depuis github après [validation de Travis](https://www.travis-ci.org/Zepmanbc/oc_dapython_pr7) ([configuration](https://github.com/Zepmanbc/oc_dapython_pr7/blob/master/.travis.yml)) et de [l'analyse de couverture](https://coveralls.io/github/Zepmanbc/oc_dapython_pr7)
+
+---
 
 ## Flask et le TDD
 
-définition d'une liste de phrases à tester:
+Définition d'une liste de phrases à tester:
 
 * Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?
 * où se trouve l'Arc de Triomphe?
@@ -49,6 +53,8 @@ définition d'une liste de phrases à tester:
 Rédaction des pages de tests puis du code des modules pour obtenir les tests vert. (J'ai réussi à faire du TDD sur toutes les parties du module utils mais j'ai rédigé les tests de views.py après. Il a fallut que je recommence les tests avec les Mocks donc j'ai dû réécrire les tests après le code pour le module information)
 
 J'ai passé énormément de temps sur les Mock avec l'utilisation de monkeypatch et MagicMock.
+
+---
 
 ## API Google Map et Wikimedia
 
@@ -76,6 +82,8 @@ Utilisation de l'API geocode pour récupérer:
 * les coordonnées GPS => pour générer la carte
 * une combinaison nom de rue + ville => requête wikipedia
 
+---
+
 ### Wikipedia
 
 Utilisation du paquet MediaWiki https://github.com/zikzakmedia/python-mediawiki
@@ -83,3 +91,57 @@ Utilisation du paquet MediaWiki https://github.com/zikzakmedia/python-mediawiki
 Récupération du contenu de la page (*content*) et découpage de la partie souhaitée => afficher dans la réponse
 
 J'ai également fait une version avec requests directement sur l'adresse pour tester.
+
+---
+
+## Arborescence du projet
+
+    .
+    ├── app.py
+    ├── .env
+    ├── .gitignore
+    ├── papyrobot
+    │   ├── __init__.py
+    │   ├── static
+    │   │   ├── css
+    │   │   │   ├── bootstrap*
+    │   │   │   └── style.css
+    │   │   ├── fonts
+    │   │   │   └── URW Bookman L Bold Italic.ttf
+    │   │   ├── img
+    │   │   │   ├── favicon.ico
+    │   │   │   ├── github5.png
+    │   │   │   ├── grandpere.png
+    │   │   │   ├── loading.gif
+    │   │   │   ├── logo-twitter-rond.png
+    │   │   │   ├── motif.jpg
+    │   │   │   └── virgule-bulle.png
+    │   │   ├── js
+    │   │   │   ├── ajax.js
+    │   │   │   ├── bootstrap*
+    │   │   │   └── front.js
+    │   │   ├── json
+    │   │   │   ├── dialog.json
+    │   │   │   ├── stopwords_custom.json
+    │   │   │   └── stopwords_fr.json
+    │   │   └── tmp
+    │   ├── templates
+    │   │   └── index.html
+    │   ├── tests
+    │   │   ├── __init__.py
+    │   │   ├── test_answer.py
+    │   │   ├── test_gmap.py
+    │   │   ├── test_question.py
+    │   │   ├── test_views.py
+    │   │   └── test_wiki.py
+    │   ├── utils
+    │   │   ├── answer.py
+    │   │   ├── information.py
+    │   │   ├── __init__.py
+    │   │   └── question.py
+    │   └── views.py
+    ├── Pipfile
+    ├── Pipfile.lock
+    ├── Procfile
+    ├── README.md
+    └── .travis.yml
