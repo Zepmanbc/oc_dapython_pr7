@@ -14,12 +14,33 @@ def client():
     return client
 
 
+@pytest.fixture
+def MockGmMw(monkeypatch):
+    """Mock GoogleMaps, MediaWiki, Question, Answer"""
+    MockGmaps = MagicMock(information.googlemaps)
+    monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGmaps)
+
+    MockMw = MagicMock(information.mediawiki)
+    monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMw)
+
+    MockQuestion = MagicMock(question.Question)
+    # MockQuestion.analyze.return_value = ""
+    monkeypatch.setattr(question, "Question", MockQuestion)
+
+    MockAnswer = MagicMock(answer.Answer)
+    # MockAnswer.response.return_value = ""
+    monkeypatch.setattr(answer, "Answer", MockAnswer)
+
+
 def test_index(client):
     response = client.get("/")
     assert response.status_code == 200
 
+def test_whatever_adress(client):
+    response = client.get("/whatever/adress")
+    assert response.status_code == 302
 
-def test_ajax_no_response(client, monkeypatch):
+def test_ajax_no_response(client, MockGmMw, monkeypatch):
     """ /ajax?question=dsfsfdafgsfdg
 
     {
@@ -27,18 +48,6 @@ def test_ajax_no_response(client, monkeypatch):
     "no_result": "hum hum... Je ne sais pas, peut \u00eatre que je pourrais te r\u00e9pondre si tu me posais une question \u00e0 laquelle j'ai une r\u00e9ponse!"
     }
     """
-    MockGooglemaps = MagicMock(information.googlemaps)
-    monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
-
-    MockMediawiki = MagicMock(information.mediawiki)
-    monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
-
-    MockQuestion = MagicMock(question.Question)
-    MockQuestion.analyze.return_value = ""
-
-    MockAnswer = MagicMock(answer.Answer)
-    MockAnswer.response.return_value = ""
-
     MockAskGmap = MagicMock(information.Information.ask_gmap)
     MockAskGmap.return_value = False
     monkeypatch.setattr('papyrobot.utils.information.Information.ask_gmap', MockAskGmap)
@@ -51,7 +60,7 @@ def test_ajax_no_response(client, monkeypatch):
     assert data["no_result"]
 
 
-def test_ajax_response(client, monkeypatch):
+def test_ajax_response(client, MockGmMw, monkeypatch):
     """ /ajax?question=Salut%20GrandPy%20!%20Est-ce%20que%20tu%20connais%20l%27adresse%20d%27OpenClassrooms%20?
     {
     "formatted_address": "7 Cit\u00e9 Paradis, 75010 Paris, France",
@@ -66,18 +75,6 @@ def test_ajax_response(client, monkeypatch):
     "street_city": "Cit\u00e9 Paradis Paris"
     }
     """
-    MockGooglemaps = MagicMock(information.googlemaps)
-    monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
-
-    MockMediawiki = MagicMock(information.mediawiki)
-    monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
-
-    MockQuestion = MagicMock(question.Question)
-    MockQuestion.analyze.return_value = ""
-
-    MockAnswer = MagicMock(answer.Answer)
-    MockAnswer.response.return_value = ""
-
     MockAskGmap = MagicMock(information.Information.ask_gmap)
     MockAskGmap.return_value = True
     monkeypatch.setattr('papyrobot.utils.information.Information.ask_gmap', MockAskGmap)
@@ -94,7 +91,7 @@ def test_ajax_response(client, monkeypatch):
     assert "location" in data
 
 
-def test_ajax_response_wiki_second(client, monkeypatch):
+def test_ajax_response_wiki_second(client, MockGmMw, monkeypatch):
     """ /ajax?question=zone%2051
     {
     "formatted_address": "Homey Airport, Nevada, USA",
@@ -109,18 +106,6 @@ def test_ajax_response_wiki_second(client, monkeypatch):
     "street_city": "Homey Airport"
     }
     """
-    MockGooglemaps = MagicMock(information.googlemaps)
-    monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGooglemaps)
-
-    MockMediawiki = MagicMock(information.mediawiki)
-    monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMediawiki)
-
-    MockQuestion = MagicMock(question.Question)
-    MockQuestion.analyze.return_value = ""
-
-    MockAnswer = MagicMock(answer.Answer)
-    MockAnswer.response.return_value = ""
-
     MockAskGmap = MagicMock(information.Information.ask_gmap)
     MockAskGmap.return_value = True
     monkeypatch.setattr('papyrobot.utils.information.Information.ask_gmap', MockAskGmap)
@@ -135,3 +120,11 @@ def test_ajax_response_wiki_second(client, monkeypatch):
     data = json.loads(response.data)
     # print(data)
     assert "location" in data
+
+
+def test_ajax_no_question(client):
+    response = client.get("/ajax")
+    assert response.status_code == 200
+
+    data = json.loads(response.data)
+    assert data == {}
