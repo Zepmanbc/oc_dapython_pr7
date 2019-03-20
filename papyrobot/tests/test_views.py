@@ -103,6 +103,9 @@ def test_ajax_response_wiki_second(client, MockGmMw, monkeypatch):
     "story": "La zone 51 est une aire g\u00e9ographique du Nevada aux \u00c9tats-Unis \u2014 aussi appel\u00e9e Dreamland, Watertown, The Ranch, Paradise Ranch, The Farm, The Box, Groom Lake, Zone 51 A, Neverland ou encore The Directorate for Development Plans Area \u2014 o\u00f9 se trouve une base militaire dite secr\u00e8te, testant entre autres des appareils exp\u00e9rimentaux. Elle est mentionn\u00e9e pour la premi\u00e8re fois sur des documents officiels am\u00e9ricains d\u00e9classifi\u00e9s en ao\u00fbt 2013 d\u00e9crivant les essais secrets de l'avion Lockheed U-2.Depuis 1989, elle est li\u00e9e aux th\u00e9ories d'OVNI. Le milieu ufologique la reprend fr\u00e9quemment \u00e0 son compte pour \u00e9laborer diverses th\u00e9ories conspirationnistes sugg\u00e9rant des relations secr\u00e8tes entre l'arm\u00e9e am\u00e9ricaine et des extraterrestres. Dans ce milieu complotiste, elle est connue sous son appellation anglaise Area 51.",
     "street_city": "Homey Airport"
     }
+
+    this return:
+    {'formatted_address': '', 'intro': "Bien sur mon poussin, voici l'adresse : ", 'introduce_story': 'Je connais très bien ce coin-là! ', 'keywords': 'zone 51', 'location': [], 'story': '', 'street_city': ''}
     """
     MockAskGmap = MagicMock(information.Information.ask_gmap)
     MockAskGmap.return_value = True

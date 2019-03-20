@@ -179,7 +179,7 @@ class TestInformationWikiAPI():
     def test_ask_wiki_api_first_page_ok(self, MockGmMw, monkeypatch):
 
         class MockReturn:
-            def __init__(self, query):
+            def __init__(self, query, params):
                 pass
 
             def json(self):
@@ -197,7 +197,7 @@ class TestInformationWikiAPI():
     def test_ask_wiki_api_first_page_fail(self, MockGmMw, monkeypatch):
 
         class MockReturn:
-            def __init__(self, query):
+            def __init__(self, query, params):
                 pass
 
             def json(self):
@@ -214,7 +214,7 @@ class TestInformationWikiAPI():
     def test_ask_wiki_api_content_ok(self, MockGmMw, monkeypatch):
 
         class MockReturn:
-            def __init__(self, query):
+            def __init__(self, query, params):
                 pass
 
             def json(self):

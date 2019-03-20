@@ -155,9 +155,15 @@ class Information():
             page_title (str)
             False: if no result
         """
-        query = "https://fr.wikipedia.org/w/api.php?action=query&list=search" \
-            "&utf8&format=json&srsearch={}".format(keyword)
-        query_pages = requests.get(query)
+        query = "https://fr.wikipedia.org/w/api.php"
+        payload = {
+            "action": "query",
+            "list": "search",
+            "utf8": "",
+            "format": "json",
+            "srsearch": keyword
+        }
+        query_pages = requests.get(query, params=payload)
         query_pages = query_pages.json()
         if query_pages["query"]["search"]:
             page_title = query_pages["query"]["search"][0]["title"]
@@ -172,10 +178,17 @@ class Information():
         Returns:
             page_content (str)
         """
-        query = "https://fr.wikipedia.org/w/api.php?" \
-            "action=query&format=json&utf8" \
-            "&explaintext&prop=extracts&exlimit=1&titles={}".format(page_title)
-        query_page = requests.get(query).json()
+        query = "https://fr.wikipedia.org/w/api.php"
+        payload = {
+            "action": "query",
+            "utf8": "",
+            "explaintext": "",
+            "format": "json",
+            "prop": "extracts",
+            "exlimit": "1",
+            "titles": page_title
+        }
+        query_page = requests.get(query, params=payload).json()
         page_nbr = next(iter(query_page["query"]["pages"]))
         page_content = query_page["query"]["pages"][page_nbr]["extract"]
         return page_content
