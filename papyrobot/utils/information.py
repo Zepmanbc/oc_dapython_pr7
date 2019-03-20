@@ -64,7 +64,7 @@ class Information():
                 street_city (str): street + " " + city
         """
         geocode_result = self.gmaps.geocode('adresse ' + str(query))
-        if not geocode_result:
+        if not geocode_result or query == '':
             return False
         self.formatted_address = geocode_result[0]['formatted_address']
         self.location = (
