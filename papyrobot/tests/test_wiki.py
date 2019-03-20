@@ -73,8 +73,8 @@ class TestInformationMEdiaWiki():
         waited = "Le Champ-de-Mars est un vaste jardin public, entièrement ouvert et situé à Paris dans le 7e arrondissement, entre la tour Eiffel au nord-ouest et l'École militaire au sud-est. Avec ses 24,5 ha, le jardin du Champ-de-Mars est l'un des plus grands espaces verts de Paris. Riche d'une histoire bicentenaire, le Champ-de-Mars accueille les Parisiens et les touristes toute l'année autour d'un vaste ensemble d'activités."
         assert result == waited
 
-    def test_ask_wiki_fail_mk(self, MockGmap, monkeypatch):
-
+    def test_ask_wiki_fail_mk_DisambiguationError(self, MockGmap, monkeypatch):
+        """no pages returned."""
         class MockSearch:
             def __init__(self):
                 pass
@@ -86,6 +86,29 @@ class TestInformationMEdiaWiki():
                 class FakePage():
                     def __init__(self, _title):
                         raise information.mediawiki.exceptions.DisambiguationError('', [''], '')
+                return FakePage(_title)
+
+        monkeypatch.setattr('papyrobot.utils.information.mediawiki.MediaWiki', MockSearch)
+
+        infos = information.Information()
+
+        key_words = "Cité par"
+        result = infos.ask_wiki(key_words)
+        assert not result
+
+    def test_ask_wiki_fail_mk_keyError(self, MockGmap, monkeypatch):
+        """no title return in page."""
+        class MockSearch:
+            def __init__(self):
+                pass
+
+            def search(self, query):
+                return ['']
+
+            def page(self, _title):
+                class FakePage():
+                    def __init__(self, _title):
+                        raise KeyError
                 return FakePage(_title)
 
         monkeypatch.setattr('papyrobot.utils.information.mediawiki.MediaWiki', MockSearch)

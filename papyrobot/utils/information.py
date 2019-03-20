@@ -118,6 +118,8 @@ class Information():
         if search:
             try:
                 result = self.wikipedia.page(search[0]).content
+            except KeyError:
+                return False
             except mediawiki.exceptions.DisambiguationError:
                 return False
             self._wiki_story_extract(result)
@@ -229,6 +231,7 @@ if __name__ == "__main__":
     # query = "zone 51"
     # keyword_gmap = question.analyze(query)
     # keyword_gmap = "tour pise"
+    # keyword_gmap = "soirée Madame Pahud hier soir indiquer musée art histoire Fribourg plaît"
     # info = Information()
     # if info.ask_gmap(keyword_gmap):
     #     print(info.formatted_address)
