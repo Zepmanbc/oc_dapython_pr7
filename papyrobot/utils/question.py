@@ -41,6 +41,8 @@ class Question():
         query = query.translate(query.maketrans(punctuation, " " * len(punctuation)))
         # remove GrandPy, PyBot like words
         query = re.sub(r"(([a-zA-Z-]*[bB]ot|[a-zA-Z-]*[pP]y))", "", query)
+        # remove "Monsieur|Madame|Mademoiselle x"
+        query = re.sub(r"([mM]onsieur|[mM]adame|[mM]ademoiselle) \w*", "", query)
         # remove stopwords
         analyzed = ' '.join([x for x in query.split() if not x.lower() in self.stopwords])
         return analyzed

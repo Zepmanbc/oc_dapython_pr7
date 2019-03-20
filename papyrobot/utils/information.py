@@ -242,6 +242,7 @@ if __name__ == "__main__":
     # query = "Dis Papy, c'est quoi l'adresse de l'Elysée?"
     # query = "Tu connais l'adresse de l'Opéra Garnier?"
     # query = "zone 51"
+    # query = "soirée Madame Pahud hier soir indiquer musée art histoire Fribourg plaît"
     # keyword_gmap = question.analyze(query)
     # keyword_gmap = "tour pise"
     # keyword_gmap = "soirée Madame Pahud hier soir indiquer musée art histoire Fribourg plaît"
