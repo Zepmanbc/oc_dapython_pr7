@@ -7,14 +7,14 @@ from papyrobot.utils import information
 
 
 class TestInformationMEdiaWiki():
-
+    """Test for mediawiki lib version"""
     @pytest.fixture
     def MockGmap(self, monkeypatch):
         MockGm = MagicMock(information.googlemaps)
         monkeypatch.setattr('papyrobot.utils.information.googlemaps', MockGm)
 
     def test_ask_wiki_ok_mk(self, MockGmap, monkeypatch):
-
+        """Test ask_wiki return is ok"""
         class MockSearch:
             def __init__(self):
                 pass
@@ -44,7 +44,7 @@ class TestInformationMEdiaWiki():
         assert result == waited
 
     def test_ask_wiki_no_situation_mk(self, MockGmap, monkeypatch):
-
+        """Test wiki content without 'situation'."""
         class MockSearch:
             def __init__(self):
                 pass
@@ -120,7 +120,7 @@ class TestInformationMEdiaWiki():
         assert not result
 
     def test_ask_wiki_false_mk(self, MockGmap, monkeypatch):
-
+        """Test ask_wiki no result."""
         class MockSearch:
             def __init__(self):
                 pass
@@ -138,7 +138,7 @@ class TestInformationMEdiaWiki():
 
 
 class TestInformationWikiAPI():
-
+    """Tests for request on mediawiki API."""
     @pytest.fixture
     def MockGmMw(self, monkeypatch):
         MockGmaps = MagicMock(information.googlemaps)
@@ -147,7 +147,7 @@ class TestInformationWikiAPI():
         monkeypatch.setattr('papyrobot.utils.information.mediawiki', MockMw)
 
     def test_ask_wikiapi_ok_mk(self, MockGmMw, monkeypatch):
-
+        """Test mediawiki return ok"""
         MockFirstPage = MagicMock(information.Information._ask_wiki_api_first_page)
         MockFirstPage.return_value = 'title'
         MockContent = MagicMock(information.Information._ask_wiki_api_content)
@@ -164,7 +164,7 @@ class TestInformationWikiAPI():
         assert result == waited
 
     def test_ask_wikiapi_fail_mk(self, MockGmMw, monkeypatch):
-
+        """Test mediawiki no result."""
         MockFirstPage = MagicMock(information.Information._ask_wiki_api_first_page)
         MockFirstPage.return_value = []
 
@@ -177,7 +177,7 @@ class TestInformationWikiAPI():
         assert not result
 
     def test_ask_wiki_api_first_page_ok(self, MockGmMw, monkeypatch):
-
+        """Test mediawiki does return a page name."""
         class MockReturn:
             def __init__(self, query, params):
                 pass
@@ -195,7 +195,7 @@ class TestInformationWikiAPI():
         assert result == waited
 
     def test_ask_wiki_api_first_page_fail(self, MockGmMw, monkeypatch):
-
+        """Test mediawiki does not return a page name."""
         class MockReturn:
             def __init__(self, query, params):
                 pass
@@ -212,7 +212,7 @@ class TestInformationWikiAPI():
         assert not result
 
     def test_ask_wiki_api_content_ok(self, MockGmMw, monkeypatch):
-
+        """Test mediawiki does return a page content."""
         class MockReturn:
             def __init__(self, query, params):
                 pass

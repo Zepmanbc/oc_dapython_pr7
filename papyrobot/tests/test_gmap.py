@@ -9,10 +9,12 @@ class TestInformationGMap():
 
     @pytest.fixture
     def MockMediaWiki(self, monkeypatch):
+        """Mock mediawiki lib."""
         Mock_mw = MagicMock(information.mediawiki)
         monkeypatch.setattr('papyrobot.utils.information.mediawiki', Mock_mw)
 
     def test_ask_gmap_ok_mk(self, MockMediaWiki, monkeypatch):
+        """Test if ask_gmap return a tuple (str,str,(float,float))"""
         class MockClient:
             def __init__(self, key):
                 pass
@@ -30,6 +32,7 @@ class TestInformationGMap():
         assert result == waited
 
     def test_ask_gmap_fail_mk(self, MockMediaWiki, monkeypatch):
+        """Test if result is empty when ask_gmap found nothing"""
         class MockClient:
             def __init__(self, key):
                 pass
@@ -45,6 +48,7 @@ class TestInformationGMap():
         assert not result
 
     def test_ask_gmap_no_route_mk(self, MockMediaWiki, monkeypatch):
+        """Test if there is no 'route' in gmap return."""
         class MockClient:
             def __init__(self, key):
                 pass
@@ -72,6 +76,7 @@ class TestInformationGMap():
         assert result == waited
 
     def test_ask_gmap_no_locality_mk(self, MockMediaWiki, monkeypatch):
+        """Test if there is no 'locality' in gmap return."""
         class MockClient:
             def __init__(self, key):
                 pass

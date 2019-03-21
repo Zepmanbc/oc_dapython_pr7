@@ -29,17 +29,21 @@ def MockGmMw(monkeypatch):
 
 
 def test_index(client):
+    """Test index url."""
     response = client.get("/")
     assert response.status_code == 200
 
 
 def test_whatever_adress_redirect(client):
+    """Test redirection."""
     response = client.get("/whatever/adress")
     assert response.status_code == 302
 
 
 def test_ajax_no_response(client, MockGmMw, monkeypatch):
-    """ /ajax?question=dsfsfdafgsfdg
+    """Test no answer.
+    
+    /ajax?question=dsfsfdafgsfdg
 
     {
     "keywords": "dsfsfdafgsfdg",
@@ -59,7 +63,10 @@ def test_ajax_no_response(client, MockGmMw, monkeypatch):
 
 
 def test_ajax_response(client, MockGmMw, monkeypatch):
-    """ /ajax?question=Salut%20GrandPy%20!%20Est-ce%20que%20tu%20connais%20l%27adresse%20d%27OpenClassrooms%20?
+    """Test good answer.
+    
+    /ajax?question=Salut%20GrandPy%20!%20Est-ce%20que%20tu%20connais%20l%27adresse%20d%27OpenClassrooms%20?
+    
     {
     "formatted_address": "7 Cit\u00e9 Paradis, 75010 Paris, France",
     "intro": "J'y allais r\u00e9guli\u00e8rement \u00e0 une \u00e9poque, c'est \u00e0 cette adresse : ",
@@ -90,7 +97,10 @@ def test_ajax_response(client, MockGmMw, monkeypatch):
 
 
 def test_ajax_response_wiki_second(client, MockGmMw, monkeypatch):
-    """ /ajax?question=zone%2051
+    """Test if city_street does not return, ask_wiki with keywords
+    
+    /ajax?question=zone%2051
+    
     {
     "formatted_address": "Homey Airport, Nevada, USA",
     "intro": "Bien sur mon poussin, voici l'adresse : ",
@@ -124,6 +134,7 @@ def test_ajax_response_wiki_second(client, MockGmMw, monkeypatch):
 
 
 def test_ajax_no_question(client):
+    """Test specific url."""
     response = client.get("/ajax")
     assert response.status_code == 200
 
